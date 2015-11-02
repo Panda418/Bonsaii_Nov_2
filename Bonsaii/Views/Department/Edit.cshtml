@@ -1,0 +1,83 @@
+﻿@model Bonsaii.Models.Department
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>修改</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>部门</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Number)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ParentDepartmentId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @* 美丽的下拉列表 *@
+                @Html.DropDownListFor(model =>model.ParentDepartmentId, (IEnumerable<SelectListItem>)ViewBag.List, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.StaffSize, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.StaffSize, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.StaffSize, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Remark, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @* 多行文本框，宽度为280px，高度为4行，这里为啥输入120我并不知道。试的。 *@
+                @Html.TextAreaFor(model => model.Remark, 4, 120, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Remark, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*遍历，显示那些自定义的字段，因为是Edit方法，所以要显示字段的初始值*@
+        @foreach (var x in @ViewBag.ValueList)
+        {
+            <div class="form-group">
+                @Html.Label((string)x.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <input id="@x.Description" value=@x.Value class="form-control" name="@x.Description" />
+                    @*弱类型方法，可以指定Value？？*@
+                    @*@Html.Editor("@x.Value",(string)@x.Value, new { htmlAttributes = new { @class = "form-control", @value = x.Value } })*@
+                   
+                </div>
+            </div>
+
+        }
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

@@ -1,0 +1,378 @@
+﻿@model Bonsaii.Models.WeekTag
+
+@Html.ActionLink("Create","Create")
+<div class="sang_Calender" id="a">
+    <button class="btn btn-primary sang_Calender" id="btn">click</button>
+    <button class="btn btn-primary sang_Calender" id="btn1">clickq</button>
+</div>
+<script src="~/Scripts/datetime.js"></script>
+@*<script src="~/Scripts/jquery-1.10.2.js"></script>*@
+<script>
+    $(document).ready(function () {
+
+
+        //$("#a").click(function () {
+        //    //$("#id33").text("休息");
+        //    $("#table1").hide();
+
+
+        //});
+        $("#a").click(function () {
+           
+            $("#table1").toggle();
+            $.ajax({
+                url: "WeekTag/Result",
+                type: 'POST',
+                data: {},
+                success: (function (data) {
+                    //date[0].week1;
+                    console.info(data);
+                    // show(this, data[0].week1, data[0].week2, data[0].week3, data[0].week4, data[0].week5, data[0].week6, data[0].week7);
+                    //alert(data[0].week7);
+                    //each.call(getObj("sang_Calender"), function (week1, week2, week3, week4, week5, week6, week7) {
+                    //    addEvent(o, "click", function (e) { preventDefault(e); oInput = o, show(week1, week2, week3, week4, week5, week6, week7); fd.focus(); })
+                    //})
+                    //this.formatDay(data[0].week1, data[0].week2, data[0].week3, data[0].week4, data[0].week5, data[0].week6, data[0].week7);
+                    var week1 = data[0].week1;
+                    var week7 = data[0].week7;
+                    //alert(week7);
+                    for (var n = 0; n < 6; n++)
+                        for (var nn = 0; nn < 7; nn++) {
+                            if (week1.trim() == "1" && nn == 1) {//trim函数是为了去掉多余的空格
+                                $("#id" + n + nn).text("休息");
+                            }
+                            if (data[0].week2.trim() == "1" && nn == 2) {
+                                $("#id" + n + nn).text("休息");
+                            }
+                            if (data[0].week3.trim() == "1" && nn == 3) {
+                                $("#id" + n + nn).text("休息");
+                            }
+                            if (data[0].week4.trim() == "1" && nn == 4) {
+                                $("#id" + n + nn).text("休息");
+                            }
+                            if (data[0].week5.trim() == "1" && nn == 5) {
+                                $("#id" + n + nn).text("休息");
+                            }
+                            if (data[0].week6.trim() == "1" && nn == 6) {
+                                $("#id" + n + nn).text("休息");
+                            }
+                            if (week7.trim() == "1" && nn == 0) {
+                                $("#id" + n + nn).text("休息");
+                            }
+
+
+
+                        }
+                    // alert(data[0].week1);
+                    //    alert(data[0].text);
+                    //
+                    //    date[0].week1;
+                    //    var json = eval(data); //数组
+                    //    for (var i = 0; i < data.length; i++) {
+                    //        var Number = data[i].number;
+                    //        var Name = data[i].name;
+                    //        $("#content").html($("#content").html() + "<tr ><th><button class=\"btn-primary\" id=id" + i + ">" + Number + "</button></th><th>" + Name + "</th></tr>");
+                    //    }
+                    //    $.each(json, function (index, item) {
+                    //        //循环获取数据
+                    //        var Number = json[index].number;
+                    //        var Name = json[index].name;
+                    //        $("#content").html($("#content").html() + "<br>" + Number + Name + "<br/>");
+                    //    });
+
+
+                    //}),
+                    //error: function () {
+                    //    alert("抱歉，该工号不存在！");
+                    //},
+
+                })
+            })
+            //$("#table1").toggle();
+        })
+        $("#monthR").click(function () {
+           // $("#table1").toggle();
+            $.ajax({
+                url: "WeekTag/Result",
+                type: 'POST',
+                data: {},
+                success: (function (data) {
+                    //date[0].week1;
+                    console.info(data);
+                    // show(this, data[0].week1, data[0].week2, data[0].week3, data[0].week4, data[0].week5, data[0].week6, data[0].week7);
+                    //alert(data[0].week7);
+                    //each.call(getObj("sang_Calender"), function (week1, week2, week3, week4, week5, week6, week7) {
+                    //    addEvent(o, "click", function (e) { preventDefault(e); oInput = o, show(week1, week2, week3, week4, week5, week6, week7); fd.focus(); })
+                    //})
+                    //this.formatDay(data[0].week1, data[0].week2, data[0].week3, data[0].week4, data[0].week5, data[0].week6, data[0].week7);
+                    var week1 = data[0].week1;
+                    var week7 = data[0].week7;
+                    //alert(week7);
+                    for (var n = 0; n < 6; n++)
+                        for (var nn = 0; nn < 7; nn++) {
+                            if (week1.trim() == "1" && nn == 1) {//trim函数是为了去掉多余的空格
+                                $("#id" + n + nn).text("休息");
+                            }
+                            if (data[0].week2.trim() == "1" && nn == 2) {
+                                $("#id" + n + nn).text("休息");
+                            }
+                            if (data[0].week3.trim() == "1" && nn == 3) {
+                                $("#id" + n + nn).text("休息");
+                            }
+                            if (data[0].week4.trim() == "1" && nn == 4) {
+                                $("#id" + n + nn).text("休息");
+                            }
+                            if (data[0].week5.trim() == "1" && nn == 5) {
+                                $("#id" + n + nn).text("休息");
+                            }
+                            if (data[0].week6.trim() == "1" && nn == 6) {
+                                $("#id" + n + nn).text("休息");
+                            }
+                            if (week7.trim() == "1" && nn == 0) {
+                                $("#id" + n + nn).text("休息");
+                            }
+
+
+
+                        }
+                    // alert(data[0].week1);
+                    //    alert(data[0].text);
+                    //
+                    //    date[0].week1;
+                    //    var json = eval(data); //数组
+                    //    for (var i = 0; i < data.length; i++) {
+                    //        var Number = data[i].number;
+                    //        var Name = data[i].name;
+                    //        $("#content").html($("#content").html() + "<tr ><th><button class=\"btn-primary\" id=id" + i + ">" + Number + "</button></th><th>" + Name + "</th></tr>");
+                    //    }
+                    //    $.each(json, function (index, item) {
+                    //        //循环获取数据
+                    //        var Number = json[index].number;
+                    //        var Name = json[index].name;
+                    //        $("#content").html($("#content").html() + "<br>" + Number + Name + "<br/>");
+                    //    });
+
+
+                    //}),
+                    //error: function () {
+                    //    alert("抱歉，该工号不存在！");
+                    //},
+
+                })
+            })
+        })
+        $("#monthL").click(function () {
+            // $("#table1").toggle();
+            $.ajax({
+                url: "WeekTag/Result",
+                type: 'POST',
+                data: {},
+                success: (function (data) {
+                    //date[0].week1;
+                    console.info(data);
+                    // show(this, data[0].week1, data[0].week2, data[0].week3, data[0].week4, data[0].week5, data[0].week6, data[0].week7);
+                    //alert(data[0].week7);
+                    //each.call(getObj("sang_Calender"), function (week1, week2, week3, week4, week5, week6, week7) {
+                    //    addEvent(o, "click", function (e) { preventDefault(e); oInput = o, show(week1, week2, week3, week4, week5, week6, week7); fd.focus(); })
+                    //})
+                    //this.formatDay(data[0].week1, data[0].week2, data[0].week3, data[0].week4, data[0].week5, data[0].week6, data[0].week7);
+                    var week1 = data[0].week1;
+                    var week7 = data[0].week7;
+                    //alert(week7);
+                    for (var n = 0; n < 6; n++)
+                        for (var nn = 0; nn < 7; nn++) {
+                            if (week1.trim() == "1" && nn == 1) {//trim函数是为了去掉多余的空格
+                                $("#id" + n + nn).text("休息");
+                            }
+                            if (data[0].week2.trim() == "1" && nn == 2) {
+                                $("#id" + n + nn).text("休息");
+                            }
+                            if (data[0].week3.trim() == "1" && nn == 3) {
+                                $("#id" + n + nn).text("休息");
+                            }
+                            if (data[0].week4.trim() == "1" && nn == 4) {
+                                $("#id" + n + nn).text("休息");
+                            }
+                            if (data[0].week5.trim() == "1" && nn == 5) {
+                                $("#id" + n + nn).text("休息");
+                            }
+                            if (data[0].week6.trim() == "1" && nn == 6) {
+                                $("#id" + n + nn).text("休息");
+                            }
+                            if (week7.trim() == "1" && nn == 0) {
+                                $("#id" + n + nn).text("休息");
+                            }
+
+
+
+                        }
+                    // alert(data[0].week1);
+                    //    alert(data[0].text);
+                    //
+                    //    date[0].week1;
+                    //    var json = eval(data); //数组
+                    //    for (var i = 0; i < data.length; i++) {
+                    //        var Number = data[i].number;
+                    //        var Name = data[i].name;
+                    //        $("#content").html($("#content").html() + "<tr ><th><button class=\"btn-primary\" id=id" + i + ">" + Number + "</button></th><th>" + Name + "</th></tr>");
+                    //    }
+                    //    $.each(json, function (index, item) {
+                    //        //循环获取数据
+                    //        var Number = json[index].number;
+                    //        var Name = json[index].name;
+                    //        $("#content").html($("#content").html() + "<br>" + Number + Name + "<br/>");
+                    //    });
+
+
+                    //}),
+                    //error: function () {
+                    //    alert("抱歉，该工号不存在！");
+                    //},
+
+                })
+            })
+        })
+        $("#yearR").click(function () {
+            // $("#table1").toggle();
+            $.ajax({
+                url: "WeekTag/Result",
+                type: 'POST',
+                data: {},
+                success: (function (data) {
+                    //date[0].week1;
+                    console.info(data);
+                    // show(this, data[0].week1, data[0].week2, data[0].week3, data[0].week4, data[0].week5, data[0].week6, data[0].week7);
+                    //alert(data[0].week7);
+                    //each.call(getObj("sang_Calender"), function (week1, week2, week3, week4, week5, week6, week7) {
+                    //    addEvent(o, "click", function (e) { preventDefault(e); oInput = o, show(week1, week2, week3, week4, week5, week6, week7); fd.focus(); })
+                    //})
+                    //this.formatDay(data[0].week1, data[0].week2, data[0].week3, data[0].week4, data[0].week5, data[0].week6, data[0].week7);
+                    var week1 = data[0].week1;
+                    var week7 = data[0].week7;
+                    //alert(week7);
+                    for (var n = 0; n < 6; n++)
+                        for (var nn = 0; nn < 7; nn++) {
+                            if (week1.trim() == "1" && nn == 1) {//trim函数是为了去掉多余的空格
+                                $("#id" + n + nn).text("休息");
+                            }
+                            if (data[0].week2.trim() == "1" && nn == 2) {
+                                $("#id" + n + nn).text("休息");
+                            }
+                            if (data[0].week3.trim() == "1" && nn == 3) {
+                                $("#id" + n + nn).text("休息");
+                            }
+                            if (data[0].week4.trim() == "1" && nn == 4) {
+                                $("#id" + n + nn).text("休息");
+                            }
+                            if (data[0].week5.trim() == "1" && nn == 5) {
+                                $("#id" + n + nn).text("休息");
+                            }
+                            if (data[0].week6.trim() == "1" && nn == 6) {
+                                $("#id" + n + nn).text("休息");
+                            }
+                            if (week7.trim() == "1" && nn == 0) {
+                                $("#id" + n + nn).text("休息");
+                            }
+
+
+
+                        }
+                    // alert(data[0].week1);
+                    //    alert(data[0].text);
+                    //
+                    //    date[0].week1;
+                    //    var json = eval(data); //数组
+                    //    for (var i = 0; i < data.length; i++) {
+                    //        var Number = data[i].number;
+                    //        var Name = data[i].name;
+                    //        $("#content").html($("#content").html() + "<tr ><th><button class=\"btn-primary\" id=id" + i + ">" + Number + "</button></th><th>" + Name + "</th></tr>");
+                    //    }
+                    //    $.each(json, function (index, item) {
+                    //        //循环获取数据
+                    //        var Number = json[index].number;
+                    //        var Name = json[index].name;
+                    //        $("#content").html($("#content").html() + "<br>" + Number + Name + "<br/>");
+                    //    });
+
+
+                    //}),
+                    //error: function () {
+                    //    alert("抱歉，该工号不存在！");
+                    //},
+
+                })
+            })
+        })
+        $("#yearL").click(function () {
+            // $("#table1").toggle();
+            $.ajax({
+                url: "WeekTag/Result",
+                type: 'POST',
+                data: {},
+                success: (function (data) {
+                    //date[0].week1;
+                    console.info(data);
+                    // show(this, data[0].week1, data[0].week2, data[0].week3, data[0].week4, data[0].week5, data[0].week6, data[0].week7);
+                    //alert(data[0].week7);
+                    //each.call(getObj("sang_Calender"), function (week1, week2, week3, week4, week5, week6, week7) {
+                    //    addEvent(o, "click", function (e) { preventDefault(e); oInput = o, show(week1, week2, week3, week4, week5, week6, week7); fd.focus(); })
+                    //})
+                    //this.formatDay(data[0].week1, data[0].week2, data[0].week3, data[0].week4, data[0].week5, data[0].week6, data[0].week7);
+                    var week1 = data[0].week1;
+                    var week7 = data[0].week7;
+                    //alert(week7);
+                    for (var n = 0; n < 6; n++)
+                        for (var nn = 0; nn < 7; nn++) {
+                            if (week1.trim() == "1" && nn == 1) {//trim函数是为了去掉多余的空格
+                                $("#id" + n + nn).text("休息");
+                            }
+                            if (data[0].week2.trim() == "1" && nn == 2) {
+                                $("#id" + n + nn).text("休息");
+                            }
+                            if (data[0].week3.trim() == "1" && nn == 3) {
+                                $("#id" + n + nn).text("休息");
+                            }
+                            if (data[0].week4.trim() == "1" && nn == 4) {
+                                $("#id" + n + nn).text("休息");
+                            }
+                            if (data[0].week5.trim() == "1" && nn == 5) {
+                                $("#id" + n + nn).text("休息");
+                            }
+                            if (data[0].week6.trim() == "1" && nn == 6) {
+                                $("#id" + n + nn).text("休息");
+                            }
+                            if (week7.trim() == "1" && nn == 0) {
+                                $("#id" + n + nn).text("休息");
+                            }
+
+
+
+                        }
+                    // alert(data[0].week1);
+                    //    alert(data[0].text);
+                    //
+                    //    date[0].week1;
+                    //    var json = eval(data); //数组
+                    //    for (var i = 0; i < data.length; i++) {
+                    //        var Number = data[i].number;
+                    //        var Name = data[i].name;
+                    //        $("#content").html($("#content").html() + "<tr ><th><button class=\"btn-primary\" id=id" + i + ">" + Number + "</button></th><th>" + Name + "</th></tr>");
+                    //    }
+                    //    $.each(json, function (index, item) {
+                    //        //循环获取数据
+                    //        var Number = json[index].number;
+                    //        var Name = json[index].name;
+                    //        $("#content").html($("#content").html() + "<br>" + Number + Name + "<br/>");
+                    //    });
+
+
+                    //}),
+                    //error: function () {
+                    //    alert("抱歉，该工号不存在！");
+                    //},
+
+                })
+            })
+        })
+    })
+</script>

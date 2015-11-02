@@ -1,0 +1,65 @@
+﻿@model Bonsaii.Models.DepartmentViewModel
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>删除</h2>
+
+<h3>你确定删除?</h3>
+<div>
+    <h4>部门</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ParentDepartmentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ParentDepartmentName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StaffSize)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StaffSize)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Remark)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Remark)
+        </dd>
+        @foreach (var temp in @ViewBag.List)
+        {
+            <dt>
+                @Html.DisplayName((string)temp.Description)
+            </dt>
+
+            <dd>
+                @temp.Value
+            </dd>
+        }
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("返回", "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,81 @@
+﻿@model IEnumerable<Bonsaii.Models.BillPropertyModels>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("设置新单据性质", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TypeName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TypeFullName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CodeMethod)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Code)
+        </th>       
+        <th>
+            @Html.DisplayNameFor(model => model.IsAutoAudit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsApprove)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsLimitInput)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsAscOrDesc)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TypeName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TypeFullName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CodeMethod)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Code)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsAutoAudit)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsApprove)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsLimitInput)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsAscOrDesc)
+        </td>
+        <td>
+            @Html.ActionLink("编辑", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("删除", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

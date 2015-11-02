@@ -1,0 +1,172 @@
+﻿@model Bonsaii.Models.BillPropertyModels
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>BillPropertyModels</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Type, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TypeName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TypeName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TypeName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TypeFullName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TypeFullName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TypeFullName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CodeMethod, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.CodeMethod, (IEnumerable<SelectListItem>)ViewBag.List, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CodeMethod, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsAutoAudit, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.IsAutoAudit)
+                    @Html.ValidationMessageFor(model => model.IsAutoAudit, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsApprove, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.IsApprove)
+                    @Html.ValidationMessageFor(model => model.IsApprove, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsLimitInput, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.IsLimitInput)
+                    @Html.ValidationMessageFor(model => model.IsLimitInput, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsAscOrDesc, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.IsAscOrDesc)
+                    @Html.ValidationMessageFor(model => model.IsAscOrDesc, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        $('#CodeMethod').change(function () {
+            $('#Code ~ span').text("");
+            var method = $('#CodeMethod').val();
+            var tmp;
+            if (method == '日编+流水') {
+                $('#Code').attr('readOnly', 'true');
+                tmp = "YYYYMMDD**";
+            }
+            if (method == '月编+流水') {
+                $('#Code').attr('readOnly', 'true');
+                tmp = "YYYYMM****";
+            }
+            if (method == '流水') {
+                $('#Code').removeAttr('readOnly');
+            }
+            if (method == '手动设置') {
+                $('#Code').attr('readOnly', 'true');
+                tmp = "";
+            }
+            $('#Code').val(tmp);
+            $('#Code').attr('value', tmp);
+
+        });
+
+        $('#Code').blur(function () {
+            var code = $('#Code').val();
+            var reg = /^[a-zA-Z]{0,8}\**$/;
+            var regLen = /([A-Za-z]|\*){10}/;
+            if (regLen.test(code) && reg.test(code)) {
+                return
+            }
+            else {
+                $('#Code ~ span').text("流水编码格式输入错误");
+            }
+        });
+
+        $('#Type').blur(function () {
+            var type = $('#Type').val();
+            $.ajax({
+                url: '/BillPropertyModels/CheckType',
+                data: {
+                    Type: type
+                },
+                type: 'POST',
+                success: function (data) {
+                    //柑橘类别已经存在
+                    if (data.result == "ERROR") {
+                        $('.form-group:first span:first').text("该单据类别已经存在！");
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert("验证码获取失败！请稍后重新尝试");
+                },
+                //    dataType: 'json'
+            });
+        });
+    });
+</script>

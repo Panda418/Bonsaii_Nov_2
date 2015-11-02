@@ -1,0 +1,81 @@
+﻿@model IEnumerable<Bonsaii.Models.DepartmentViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>部门信息列表</h2>
+
+<p>
+    @Html.ActionLink("创建部门", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Number)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ParentDepartmentName)
+        </th>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.StaffSize)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Remark)
+        </th>
+
+        @* DepartmentViewModel显示部门信息（部门表变化的字段） *@
+        @foreach (var temp in @ViewBag.recordList)
+        {
+            <th>
+                @Html.DisplayName((string)temp.Description)
+            </th>
+        }
+
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Number)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+    
+        <th>
+            @Html.DisplayFor(modelItem => item.ParentDepartmentName)
+        </th>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.StaffSize)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Remark)
+        </td>
+
+        @* DepartmentViewModel显示部门信息（部门表变化的字段） *@
+        @foreach (var temp in @ViewBag.List)
+        {
+            if(temp.Number==item.Number)
+            { 
+            <th>
+                @temp.Value
+            </th>
+            }
+        }
+
+        <td>
+            @Html.ActionLink("修改", "Edit", new { id=item.Number }) |
+            @Html.ActionLink("详情", "Details", new { id = item.Number }) |
+            @Html.ActionLink("删除", "Delete", new { id = item.Number})
+        </td>
+    </tr>
+}
+
+</table>

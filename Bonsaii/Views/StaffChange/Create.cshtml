@@ -1,0 +1,479 @@
+﻿@model Bonsaii.Models.StaffChange
+
+@{
+    ViewBag.Title = "Create";
+}
+<link href="~/Content/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+<script src="~/Scripts/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+<script src="~/Scripts/datetimepicker/bootstrap-datetimepicker.zh-CN.js"></script>
+<script src="~/Scripts/bootstrap3-typeahead.min.js"></script>
+<h2>Create</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>StaffChange</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @* （单据）类别编号、（单据）类别名称、单号*@
+        <div class="form-group">
+            @Html.LabelFor(model => model.BillTypeNumber, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.BillTypeNumber, new { htmlAttributes = new { @class = "form-control",@dataprovide="typeahead"} })
+                @Html.ValidationMessageFor(model => model.BillTypeNumber, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.BillTypeName, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.BillTypeName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.BillTypeName, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.BillNumber, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.BillNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.BillNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <hr>
+        @*员工工号、姓名、性别*@
+        <div class="form-group">
+            @Html.LabelFor(model => model.StaffNumber, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3" >
+                @*@Html.DropDownListFor(model=>model.StaffNumber,(IEnumerable<SelectListItem>)ViewBag.StaffNumberList,new{@class="form-control"})*@
+                @Html.EditorFor(model => model.StaffNumber, new { htmlAttributes = new { @class = "form-control",@dataprovider = "typeahead"} })
+                @Html.ValidationMessageFor(model => model.StaffNumber, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.Gender, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @*出生日期、民族、籍贯*@
+        <div class="form-group">
+            @Html.LabelFor(model => model.BirthDate, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                <div class="input-group date form_date col-md-6" style="width:52%" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                    @Html.EditorFor(model => model.BirthDate, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.BirthDate, "", new { @class = "text-danger" })
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                </div>
+            </div>
+            @Html.LabelFor(model => model.Nation, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.Nation, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Nation, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.NativePlace, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.NativePlace, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NativePlace, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @*证件类型、证件号码、签证机关*@
+        <div class="form-group">
+
+            @Html.LabelFor(model => model.IdentificationType, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.IdentificationType, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.IdentificationType, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.IdentificationNumber, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.IdentificationNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.IdentificationNumber, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.VisaOffice, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.VisaOffice, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.VisaOffice, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @*手机号码、婚姻状况、健康状况*@
+        <div class="form-group">
+            @Html.LabelFor(model => model.IndividualTelNumber, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.IndividualTelNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.IndividualTelNumber, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.HealthCondition, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.HealthCondition, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.HealthCondition, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.MaritalStatus, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.MaritalStatus, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MaritalStatus, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @*国籍、家庭住址、家庭电话*@
+        <div class="form-group">
+            @Html.LabelFor(model => model.Nationality, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.Nationality, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Nationality, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.HomeTelNumber, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.HomeTelNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.HomeTelNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <hr>
+        @*学历、毕业院校、专业*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EducationBackground, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.EducationBackground, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EducationBackground, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.GraduationSchool, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.GraduationSchool, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.GraduationSchool, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.SchoolMajor, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.SchoolMajor, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SchoolMajor, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @*学位、介绍人 *@
+        <div class="form-group">
+            @Html.LabelFor(model => model.Degree, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.Degree, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Degree, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.Introducer, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.Introducer, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Introducer, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+        <hr>
+
+        @* 部门、职位、工种*@
+        <div class="form-group">
+            @Html.LabelFor(model => model.Department, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.Department, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Department, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.Position, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.Position, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Position, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.AbnormalChange, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.AbnormalChange, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AbnormalChange, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @*员工来源、在职、入职日期*@
+        <div class="form-group">
+            @Html.LabelFor(model => model.Source, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.Source, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Source, "", new { @class = "text-danger" })
+            </div>
+
+            @Html.LabelFor(model => model.JobState, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.JobState, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.JobState, "", new { @class = "text-danger" })
+            </div>
+
+            @Html.LabelFor(model => model.Entrydate, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                <div class="input-group date form_date col-md-6" style="width:52%" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                    @Html.EditorFor(model => model.Entrydate, new { htmlAttributes = new { @class = "form-control" } })
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                    @Html.ValidationMessageFor(model => model.Entrydate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+        </div>
+        @*班次、工种、用工性质*@
+        <div class="form-group">
+            @Html.LabelFor(model => model.ClassOrder, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.ClassOrder, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ClassOrder, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.WorkType, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.WorkType, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.WorkType, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.WorkProperty, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.WorkProperty, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.WorkProperty, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <hr>
+        @* 银行卡号、物理卡号、试用期满*@
+        <div class="form-group">
+            @Html.LabelFor(model => model.BankCardNumber, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.BankCardNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.BankCardNumber, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.PhysicalCardNumber, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.PhysicalCardNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PhysicalCardNumber, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.QualifyingPeriodFull, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.QualifyingPeriodFull, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.QualifyingPeriodFull, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @* 免卡、加班需申请、黑名单*@
+        <div class="form-group">
+            @Html.LabelFor(model => model.FreeCard, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.FreeCard, new { htmlAttributes = new { @class = "checkbox" } })
+                @Html.ValidationMessageFor(model => model.FreeCard, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.ApplyOvertimeSwitch, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.ApplyOvertimeSwitch, new { htmlAttributes = new { @class = "checkbox" } })
+                @Html.ValidationMessageFor(model => model.ApplyOvertimeSwitch, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.InBlacklist, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.InBlacklist, new { htmlAttributes = new { @class = "checkbox" } })
+                @Html.ValidationMessageFor(model => model.InBlacklist, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <hr>
+        @* 紧急联系人、紧急联系人住址、紧急联系人电话   *@
+        <div class="form-group">
+            @Html.LabelFor(model => model.UrgencyContactMan, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3" >
+                @Html.EditorFor(model => model.UrgencyContactMan, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.UrgencyContactMan, "", new { @class = "text-danger" })
+            </div>
+
+            @Html.LabelFor(model => model.UrgencyContactAddress, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.UrgencyContactAddress, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.UrgencyContactAddress, "", new { @class = "text-danger" })
+            </div>
+
+            @Html.LabelFor(model => model.UrgencyContactPhoneNumber, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.UrgencyContactPhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.UrgencyContactPhoneNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <hr>
+        @* 离职日期、离职类型、离职原因*@
+        <div class="form-group">
+            @Html.LabelFor(model => model.LeaveDate, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.LeaveDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LeaveDate, "", new { @class = "text-danger" })
+            </div>
+
+            @Html.LabelFor(model => model.LeaveType, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.LeaveType, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LeaveType, "", new { @class = "text-danger" })
+            </div>
+
+            @Html.LabelFor(model => model.LeaveReason, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.LeaveReason, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LeaveReason, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*  备注、生效日期*@
+        <div class="form-group">
+            @Html.LabelFor(model => model.Remark, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3" >
+                @Html.TextAreaFor(model => model.Remark, 4, 120, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Remark, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.EffectiveDate, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                <div class=" input-group date form_date col-md-6" style="width:52%" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                    @Html.EditorFor(model => model.EffectiveDate, new { htmlAttributes = new { @class = "form-control" } })
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                    @Html.ValidationMessageFor(model => model.EffectiveDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <hr>
+        <div class="form-group">
+            <div class="col-md-offset-4">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+
+@section Scripts {
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+}
+<script>
+   
+     /*员工工号搜索*/
+    $('#StaffNumber').typeahead
+            ({
+                source:
+                    function (query,process) {
+                        $.ajax({
+                            url: '/StaffChange/StaffnumberSearch',
+                            type: 'POST',
+                            data: { number:query  },
+                            success: function (data) {
+                               // console.info("data=" + data);
+                                if(data.success==true)
+                                {
+                                   // console.info(data.data)
+                                    /*下拉菜单*/
+                                    process(data.data);
+                                }          
+                            }
+                        })
+                    },
+            });
+
+        /*日期插件*/
+        $('.form_date').datetimepicker({
+        language: 'zh-CN',
+        format: 'yyyy/mm/dd',
+        weekStart: 0,
+       todayBtn: 1,
+       autoclose: 1,
+        todayHighlight: 1,
+       startView: 2,
+        minView: 2,
+        forceParse: 0
+        });
+
+        /*实现自动填充除员工工号以外的其余字段*/
+        function sendData() {
+            var checkText = $('#StaffNumber').find("option:selected").text();
+            var checkValue = $('#StaffNumber').val();
+            checkValue = checkValue.split(" ")[0];
+            $("#StaffNumber").val(checkValue);
+            //6+
+            console.info(checkValue);
+            $.ajax({
+                url: '/StaffChange/SendData',
+                data: {
+                    StaffNumber: checkValue
+                },
+                type: 'POST',
+                success:
+                    function (result) {
+                        //遍历json
+                        for (var x in result) {
+                        
+                            if (x == "Entrydate" || x == "BirthDate"|| x=="LeaveDate") {
+                                var daytimeMilliseconds = parseInt(result[x].replace(/\D/igm, ""));
+                                var daytime = new Date(daytimeMilliseconds);
+                                result[x] = daytime.getFullYear().toString() + "-" + (daytime.getMonth() + 1).toString() + "-"
+                                + daytime.getDate().toString();
+                                var tmp = "#" + x;
+                                //必须用val方式
+                                $(tmp).val(result[x]);
+                            }
+
+                            else {
+                                var tmp = "#" + x;//  result[x]是Value值
+                                // 必须用attr方式
+                                $(tmp).attr('value', result[x]);
+                            }
+                        }
+                    },
+
+            });
+        }
+        $('#StaffNumber').change(function () {
+          //  var tmp = $('#StaffNumber').val();
+            if ($('#StaffNumber').val() == "") {
+                $(':input').val("");
+            }
+            else
+                sendData();
+        });
+        /*单据类别选择 */
+        $('#BillTypeNumber').typeahead
+        ({
+            source: function (query, process) {
+                $.ajax({
+                    url: '/StaffChange/BillTypeNumberSearch',
+                    type: 'POST',
+                    data: { number: query },
+                    success: function (data) {
+                        if (data.success == true) {
+                            process(data.data);
+                        }
+                    }
+                })
+            },
+        });
+
+        /*实现自动填充单据名称字段*/
+        function sendBillTypeNumber() {
+            var checkText = $('#BillTypeNumber').find("option:selected").text();
+            var checkValue = $('#BillTypeNumber').val();
+            checkValue = checkValue.split(" ")[0];
+            $("#BillTypeNumber").val(checkValue);
+            //console.info(checkValue);
+            $.ajax({
+                url: '/StaffChange/SendBillTypeNumber',
+                data: {BillTypeNumber: checkValue},
+                type: 'POST',
+                success:function (result) {
+                        for (var x in result) {
+                            var tmp = "#" + x;//  result[x]是Value值
+                            // 必须用attr方式
+                            $(tmp).attr('value', result[x]);
+                          //  console.info(result[x]);
+                        }
+                    },
+            });
+        }
+
+
+        $('#BillTypeNumber').change(function () {
+            //  var tmp = $('#StaffNumber').val();
+            if ($('#BillTypeNumber').val() == "") {
+                $(':input').val("");
+            }
+            else
+                sendBillTypeNumber();
+        });
+</script>

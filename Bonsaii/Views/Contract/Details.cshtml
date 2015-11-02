@@ -1,0 +1,128 @@
+﻿@model Bonsaii.Models.Contract
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Contract</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.BillTypeNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BillTypeNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BillTypeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BillTypeName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BillNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BillNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContractNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContractNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstParty)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstParty)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SecondParty)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SecondParty)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SignDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SignDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DueDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DueDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Amount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Amount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContractObject)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContractObject)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContractAttachmentType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContractAttachmentType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContractAttachmentName)
+        </dt>
+
+        <dd>
+            @if (Model.ContractAttachmentName != null)
+            {
+                <a href="@Url.Action("Download", new { id=Model.Id })">
+                    文件
+                    @Html.DisplayFor(model => model.ContractAttachmentName)
+                </a>
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Remark)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Remark)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,165 @@
+﻿@model Bonsaii.Models.Recruitments
+
+@{
+    ViewBag.Title = "EditRecruitments";
+}
+<script src="~/Scripts/utf8-net/ueditor.config.js"></script>
+<script src="~/Scripts/utf8-net/ueditor.all.js"></script>
+
+<h2>可发布招聘列表</h2>
+
+<div>
+    <h4>Recruitments</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.BillType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BillType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BillCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BillCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DepartmentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DepartmentName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Position)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Position)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RequiredNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RequiredNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gender)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gender)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Age)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Age)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MaritalStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaritalStatus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EducationBackground)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EducationBackground)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Major)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Major)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WorkExperience)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WorkExperience)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Skill)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Skill)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Others)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Others)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+@using (Html.BeginForm("SaveRecruitments","Recruitments"))
+{
+    @Html.AntiForgeryToken()
+    @*<textarea id="recruit" name="recruit" value="@Model.PublishVersion"></textarea>*@
+    <div style="width:80%">
+        @Html.HiddenFor(model => model.Id)
+        
+        <script id="container" name="content" type="text/plain">
+        </script>
+        <!-- 配置文件 -->
+
+        <!-- 实例化编辑器 -->
+        <script type="text/javascript">
+            var ue = UE.getEditor('container', {
+                initialFrameHeight: 640
+            });
+        </script>
+
+
+        <input type="submit" value="发布" class="btn btn-default" style="margin-top:30px;margin-left:50%;" />
+    </div>
+}
+
+@*<script>
+    $(document).ready(function () {
+        var ue = UE.getEditor('container', {
+            initialFrameHeight: 640
+        });
+        //渲染UEditor到指定的容器
+        ue.render("recruit");
+    });
+</script>*@
+

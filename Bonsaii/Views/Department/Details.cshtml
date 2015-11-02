@@ -1,0 +1,70 @@
+﻿@*请注意这里不要像Index那样使用IEnumerable<Bonsaii.Models.DepartmentViewModel>*@
+@model Bonsaii.Models.DepartmentViewModel
+
+@{
+        ViewBag.Title = "Details";
+}
+
+<h2>详情</h2>
+
+<div>
+        <h4>部门</h4>
+        <hr />
+        <dl class="dl-horizontal">
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Number)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Number)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ParentDepartmentName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ParentDepartmentName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.StaffSize)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.StaffSize)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Remark)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Remark)
+            </dd>
+            @* DepartmentViewModel显示部门信息（部门表变化的字段） *@
+            @foreach (var temp in @ViewBag.List)
+            {
+                <dt>
+                    @Html.DisplayName((string)temp.Description)
+                </dt>
+                
+                <dd>
+                   @temp.Value
+                </dd>
+            }
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("修改", "Edit", new { id = Model.Number }) |
+         @Html.ActionLink("返回", "Index")
+    </p>

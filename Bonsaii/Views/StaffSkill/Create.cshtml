@@ -1,0 +1,260 @@
+﻿@model Bonsaii.Models.StaffSkill
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>StaffSkill</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.BillType, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.BillType, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.BillType, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.BillNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.BillNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.BillNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.StaffNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.StaffNumber, new { htmlAttributes = new { @class = "form-control col-md-5" } })
+              
+                   @* <button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#myModal" id="staff">
+        <span class="glyphicon glyphicon-calendar"></span>
+    </button>*@
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                            </div>
+                            <div>
+                                <table class="table table-hover table-striped table-bordered" id="content">
+                                    <tr id="id9">
+                                        <th>员工编号</th>
+                                        <th>员工姓名</th>
+                                    </tr>
+                                   
+                                </table>
+                               
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @Html.ValidationMessageFor(model => model.StaffNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+      
+
+
+        <script>
+            $(document).ready(function () {
+                $("#staff").click(function () {
+                    $.ajax({
+                        url: "./Index1",
+                        type: 'POST',
+                        success: (function (data) {
+                            //alert(data[0].text);
+                            console.info(data);
+                            var json = eval(data); //数组  
+                            for (var i = 0; i < data.length; i++)
+                            {
+                                var Number = data[i].number;
+                                var Name = data[i].name;
+                                $("#content").html($("#content").html() + "<tr ><th><button class=\"btn-primary\" id=id" + i + ">" + Number + "</button></th><th>" + Name + "</th></tr>");
+                            }
+                            //$.each(json, function (index, item) {
+                            //    //循环获取数据      
+                            //    var Number = json[index].number;
+                            //    var Name = json[index].name;
+                            //    $("#content").html($("#content").html() + "<br>" + Number + Name + "<br/>");
+                            //});
+                            
+
+                        }),
+                        error: function () {
+                            alert("抱歉，该工号不存在！");
+                        },
+
+                    });
+                })
+               
+            })
+            $(function () {
+                $("#id6").click(function () {
+                    $("#StaffNumber").val(this.html());
+                    $("#StaffName").val("123");
+                })
+            })
+        </script>
+        <div class="form-group">
+            @Html.LabelFor(model => model.StaffName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.StaffName, new { htmlAttributes = new { @class = "form-control" ,@disabled="disabled"} })
+                @Html.ValidationMessageFor(model => model.StaffName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SkillNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SkillNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SkillNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.SkillName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SkillName, new { htmlAttributes = new { @class = "form-control" , @disabled="disabled"} })
+                @Html.ValidationMessageFor(model => model.SkillName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SkillGrade, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SkillGrade, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SkillGrade, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SkillRemark, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SkillRemark, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SkillRemark, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*遍历，显示那些自定义的字段*@
+        @foreach (var x in @ViewBag.fieldList)
+        {
+            <div class="form-group">
+                @*<label>x.Description</label>*@
+                @Html.Label((string)x.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.Editor((string)(x.FieldName), new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => x, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+        }
+
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+    
+    
+    
+    
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+<script type="text/javascript">
+    $(function () {
+        $("#StaffNumber").change(function () {
+            var tableid = $(this).val();
+            //$("#tableName").val(tableid);
+            //$.get("./SearchStaff", { staffNumber: tableid }, function (data) {
+            //    alert(data);
+            //    $("#StaffName").val(data);
+            //});
+            $.ajax({
+                url: "./SearchStaff",
+                type: 'POST',
+                data: { staffNumber: tableid },
+                success: (function (data) {
+                    //alert(data[0].text);
+                    console.info(data);
+                    if (data[0].text != null && "" != data[0].text) {
+                        //$("#StaffName").val(data[0].text);//传入的值，无法进行插入操作。
+                        $("#StaffName").attr("value" , data[0].text);//可以传入真是的值。
+                    }
+                    else {
+
+                        alert("抱歉，该工号不存在！");
+                        $("#StaffNumber").val("");
+                        $("#StaffName").val("");
+                    }
+
+                }),
+                error: function () {
+                    alert("抱歉，该工号不存在！");
+                },
+
+            });
+        });
+            $("#SkillNumber").change(function () {
+                var tableid = $(this).val();
+                //$("#tableName").val(tableid);
+                //$.get("./SearchStaff", { staffNumber: tableid }, function (data) {
+                //    alert(data);
+                //    $("#StaffName").val(data);
+                //});
+                $.ajax({
+                    url: "./SearchSkill",
+                    type: 'POST',
+                    data: { skillNumber: tableid },
+                    success: (function (data) {
+                        //alert(data[0].text);
+                        console.info(data);
+                        if (data[0].text != null && "" != data[0].text) {
+                            // $("#SkillName").val(data[0].text);//传入的值，无法进行插入操作。
+                            $("#SkillName").attr("value", data[0].text);//可以传入真是的值。
+                        }
+                        else {
+
+                            alert("抱歉，该技能号不存在！");
+                            $("#SkillNumber").val("");
+                            $("#SkillNumber").val("");
+                        }
+
+                    }),
+                    error: function () {
+                        alert("抱歉，该技能号不存在！");
+                    },
+
+                });
+            });
+    });
+</script>
+@*<script src="http://files.cnblogs.com/rubylouvre/bootstrap-modal.js"></script>*@
+<script src="~/Scripts/datetimepicker/model.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

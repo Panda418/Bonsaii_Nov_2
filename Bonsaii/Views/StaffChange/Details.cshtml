@@ -1,0 +1,215 @@
+﻿@model Bonsaii.Models.StaffChange
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div class="form-horizontal">
+    <h4>StaffChange</h4>
+    <hr />
+       @* （单据）类别编号、（单据）类别名称、单号*@
+       <div class="form-group">
+           <div class="col-md-1">
+               @Html.DisplayNameFor(model => model.BillTypeNumber)
+           </div>
+           <div class="col-md-2">
+               @Html.DisplayFor(model => model.BillTypeNumber)
+           </div>
+           <div class="col-md-1">
+               @Html.DisplayNameFor(model => model.BillTypeName)
+           </div>
+           <div class ="col-md-2">
+               @Html.DisplayFor(model => model.BillTypeName)
+           </div>
+           <div class="col-md-1">
+               @Html.DisplayNameFor(model => model.BillNumber)
+           </div>
+           <div class="col-md-2">
+              @Html.DisplayFor(model => model.BillNumber)
+           </div>
+    </div>
+      <hr>
+        @*员工工号、姓名、性别*@
+       <div class="form-group">
+           <div class="col-md-1">
+               @Html.DisplayNameFor(model => model.StaffNumber)
+            </div>
+               <div class="col-md-2">
+                   @Html.DisplayFor(model => model.StaffNumber)
+               </div>
+           <div class="col-md-1">
+               @Html.DisplayNameFor(model => model.Name)
+           </div>
+               <div class="col-md-2">
+                   @Html.DisplayFor(model => model.Name)
+               </div>
+           <div class="col-md-1">
+               @Html.DisplayNameFor(model => model.Gender)
+            </div>
+               <div class="col-md-2">
+                   @Html.DisplayFor(model => model.Gender)
+               </div>
+           </div>
+        <hr>
+        @*出生日期、民族、籍贯*@
+        <div class="form-group">
+            <div class="col-md-1">@Html.DisplayNameFor(model => model.BirthDate)</div>
+            <div class="col-md-2">@Html.DisplayFor(model => model.BirthDate)</div>
+            <div class="col-md-1">@Html.DisplayNameFor(model => model.Nation)</div>
+            <div class="col-md-2">@Html.DisplayFor(model => model.Nation)</div>
+            <div class="col-md-1">@Html.DisplayNameFor(model => model.NativePlace)</div>
+            <div class="col-md-2">@Html.DisplayFor(model => model.NativePlace)</div>
+            </div>
+        @*证件类型、证件号码、签证机关*@
+        <div class="form-group">
+            <div class="col-md-1">@Html.DisplayNameFor(model => model.IdentificationType)</div>
+            <div class="col-md-2">@Html.DisplayFor(model => model.IdentificationType)</div>
+            <div class="col-md-1">@Html.DisplayNameFor(model => model.IdentificationNumber)</div>
+            <div class="col-md-2">@Html.DisplayFor(model => model.IdentificationNumber)</div>
+            <div class="col-md-1">@Html.DisplayNameFor(model => model.VisaOffice)</div>
+            <div class="col-md-2">@Html.DisplayFor(model => model.VisaOffice)</div>
+        </div>
+        @*手机号码、婚姻状况、健康状况*@
+        <div class="form-group">
+            <div class="col-md-1">@Html.DisplayNameFor(model => model.IndividualTelNumber)</div>
+            <div class="col-md-2">@Html.DisplayFor(model => model.IndividualTelNumber)</div>
+            <div class="col-md-1">@Html.DisplayNameFor(model => model.HealthCondition)</div>
+            <div class="col-md-2">@Html.DisplayFor(model => model.HealthCondition)</div>
+            <div class="col-md-1">@Html.DisplayNameFor(model => model.MaritalStatus)</div>
+            <div class="col-md-2">@Html.DisplayFor(model => model.MaritalStatus)</div>
+         </div>
+        @*国籍、家庭住址、家庭电话*@
+        <div class="form-group">
+            <div class="col-md-1">@Html.DisplayNameFor(model => model.Nationality)</div>
+            <div class="col-md-2">@Html.DisplayFor(model => model.Nationality)</div>
+            <div class="col-md-1">@Html.DisplayNameFor(model => model.Address)</div>
+            <div class="col-md-2">@Html.DisplayFor(model => model.Address)</div>
+            <div class="col-md-1">@Html.DisplayNameFor(model => model.HomeTelNumber)</div>
+            <div class="col-md-2">@Html.DisplayFor(model => model.HomeTelNumber)</div>
+        </div>
+        <hr>
+        @*学历、毕业院校、专业*@
+        <div class="form-group">
+            <div class="col-md-1">@Html.DisplayNameFor(model => model.EducationBackground)</div>
+            <div class="col-md-2">@Html.DisplayFor(model => model.EducationBackground)</div>
+            <div class="col-md-1">@Html.DisplayNameFor(model => model.GraduationSchool)</div>
+            <div class="col-md-2">@Html.DisplayFor(model => model.GraduationSchool)</div>
+            <div class="col-md-1">@Html.DisplayNameFor(model => model.SchoolMajor)</div>
+            <div class="col-md-2">@Html.DisplayFor(model => model.SchoolMajor)</div>
+        </div>
+        @*学位、介绍人 *@
+        <div class="form-group">
+            <div class="col-md-1">@Html.DisplayNameFor(model => model.Degree)</div>
+            <div class="col-md-2">@Html.DisplayFor(model => model.Degree)</div>
+            <div class="col-md-1">@Html.DisplayNameFor(model => model.Introducer)</div>
+            <div class="col-md-2">@Html.DisplayFor(model => model.Introducer)</div>
+        </div>
+        <hr>
+        @* 部门、职位、工种*@
+        <div class="form-group">
+                <div class="col-md-1">@Html.DisplayNameFor(model => model.Department)</div>
+                <div class="col-md-2">@Html.DisplayFor(model => model.Department)</div>
+                <div class="col-md-1">@Html.DisplayNameFor(model => model.Position)</div>
+                <div class="col-md-2">@Html.DisplayFor(model => model.Position)</div>
+                <div class="col-md-1">@Html.DisplayNameFor(model => model.AbnormalChange)</div>
+                <div class="col-md-2">@Html.DisplayFor(model => model.AbnormalChange)</div>
+        </div>
+        @*员工来源、在职、入职日期*@
+        <div class="form-group">
+            <div class="col-md-1">@Html.DisplayNameFor(model => model.Source)</div>
+            <div class="col-md-2">@Html.DisplayFor(model => model.Source)</div>
+            <div class="col-md-1">@Html.DisplayNameFor(model => model.JobState)</div>
+            <div class="col-md-2">@Html.DisplayFor(model => model.JobState)</div>
+            <div class="col-md-1">@Html.DisplayNameFor(model => model.Entrydate)</div>
+            <div class="col-md-2">@Html.DisplayFor(model => model.Entrydate)</div>
+        </div>
+        
+        @*班次、工种、用工性质*@
+        <div class="form-group">
+            @Html.DisplayNameFor(model => model.ClassOrder)
+            <div class="col-md-3">
+                @Html.DisplayFor(model => model.ClassOrder)
+             
+            </div>
+            @Html.DisplayNameFor(model => model.WorkType)
+            <div class="col-md-3">
+                @Html.DisplayFor(model => model.WorkType)
+        
+            </div>
+            @Html.DisplayNameFor(model => model.WorkProperty)
+            <div class="col-md-3">
+                @Html.DisplayFor(model => model.WorkProperty)
+            
+            </div>
+        </div>
+        <hr>
+        @* 银行卡号、物理卡号、试用期满*@
+        <div class="form-group">
+            @Html.DisplayNameFor(model => model.BankCardNumber)
+            <div class="col-md-3">
+                @Html.DisplayFor(model => model.BankCardNumber)
+           
+            </div>
+            @Html.DisplayNameFor(model => model.PhysicalCardNumber)
+            <div class="col-md-3">
+                @Html.DisplayFor(model => model.PhysicalCardNumber)
+       
+            </div>
+            @Html.DisplayNameFor(model => model.QualifyingPeriodFull)
+            <div class="col-md-3">
+                @Html.DisplayFor(model => model.QualifyingPeriodFull)
+               
+            </div>
+        </div>
+        <hr/>
+        @* 免卡、加班需申请、黑名单*@
+        <div class="form-group">
+            @Html.DisplayNameFor(model => model.FreeCard)
+            <div class="col-md-3">
+                @Html.DisplayFor(model => model.FreeCard, new { htmlAttributes = new { @class = "checkbox" } })
+            </div>
+            @Html.DisplayNameFor(model => model.ApplyOvertimeSwitch)
+            <div class="col-md-3">
+                @Html.DisplayFor(model => model.ApplyOvertimeSwitch, new { htmlAttributes = new { @class = "checkbox" } })
+            </div>
+            @Html.DisplayNameFor(model => model.InBlacklist)
+            <div class="col-md-3">
+                @Html.DisplayFor(model => model.InBlacklist, new { htmlAttributes = new { @class = "checkbox" } })
+            </div>
+        </div>
+        <hr>
+        @* 紧急联系人、紧急联系人住址、紧急联系人电话   *@
+        <div class="form-group">
+            @Html.DisplayNameFor(model => model.UrgencyContactMan)
+            <div class="col-md-3">
+                @Html.DisplayFor(model => model.UrgencyContactMan)
+            </div>
+            @Html.DisplayNameFor(model => model.UrgencyContactAddress)
+            <div class="col-md-3">
+                @Html.DisplayFor(model => model.UrgencyContactAddress)
+            </div>
+            @Html.DisplayNameFor(model => model.UrgencyContactPhoneNumber)
+            <div class="col-md-3">
+                @Html.DisplayFor(model => model.UrgencyContactPhoneNumber)
+            </div>
+        </div>
+        <hr>
+        @*  备注、生效日期*@
+        <div class="form-group">
+            @Html.DisplayNameFor(model => model.Remark)
+            <div class="col-md-3">
+                @Html.TextAreaFor(model => model.Remark, 4, 120, new { @class = "form-control" })
+            </div>
+            @Html.DisplayNameFor(model => model.EffectiveDate)
+            <div class="col-md-3">
+                @Html.DisplayFor(model => model.EffectiveDate)
+            </div>
+        </div>
+</div>
+
+<p>
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |*@
+    @Html.ActionLink("Back to List", "List")
+</p>
