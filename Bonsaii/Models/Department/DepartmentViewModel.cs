@@ -8,16 +8,18 @@ namespace Bonsaii.Models
 {
     public class DepartmentViewModel
     {
-
+        [Key]
         public int Id { get; set; }
-        [Display(Name = "部门ID")]
-        public string Number { get; set; }
-        
+
+        [Display(Name = "部门编号")]
+        public string DepartmentId { get; set; }
+
         [Display(Name = "部门名称")]
         public string Name { get; set; }
 
         [Display(Name = "上级部门")]
         public string ParentDepartmentName { get; set; }
+
         [Display(Name = "编制人数")]
         public int StaffSize { get; set; }
 

@@ -12,55 +12,67 @@ namespace Bonsaii.Controllers
 {
     public class DepartmentController : BaseController
     {
+
         // GET: Department
         public ActionResult Index(string sortOrder)
         {
+            /*左联：显示所有部门表的字段*/
+            var q = from d in db.Departments
+                    join x in db.Departments on d.ParentDepartmentId equals x.DepartmentId
+                          into gc
+                    from x in gc.DefaultIfEmpty()
+                    select new DepartmentViewModel
+                    {
+                        Id = d.Id,
+                        DepartmentId = d.DepartmentId,
+                        Name = d.Name,
+                        Remark = d.Remark,
+                        ParentDepartmentName = x.Name,
+                        StaffSize = d.StaffSize
 
-             /*左联：显示所有部门表的字段*/
-             var q = from d in db.Departments
-                     join x in db.Departments on d.ParentDepartmentId equals x.Number
-                           into gc
-                     from x in gc.DefaultIfEmpty()
-                     select new DepartmentViewModel { 
-                         Number = d.Number, Name = d.Name, Remark = d.Remark, ParentDepartmentName = x.Name, StaffSize = d.StaffSize 
-                     };
-
+                    };
+            /*排序*/
             ViewBag.NumberSort = String.IsNullOrEmpty(sortOrder) ? "Number desc" : "";
             ViewBag.NameSort = String.IsNullOrEmpty(sortOrder);
-
             /*查找预留字段表，然后获取部门所有预留字段*/
             var recordList = (from p in db.ReserveFields where p.TableName == "Departments" select p).ToList();
             ViewBag.recordList = recordList;
             var pp = (from df in db.DepartmentReserves
-                     join rf in db.ReserveFields on df.FieldId equals rf.Id
-                      select new DepartmentViewModel { Description = rf.Description, Value = df.Value, Number = df.Number }).ToList();//Number=df.Number是为了传到前台页面，进行判断。
+                      join rf in db.ReserveFields on df.FieldId equals rf.Id
+                      select new DepartmentViewModel { 
+                           Id=df.Number, 
+                          Description = rf.Description, 
+                          Value = df.Value
+                      }).ToList();//Number=df.Number是为了传到前台页面，进行判断。
             ViewBag.List = pp;
-         
+
             return View(q);           
         }
 
         // GET: Department/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             //左联：查询上级部门的名称
             var q = from d in db.Departments
-                    join x in db.Departments on d.ParentDepartmentId equals x.Number
+                    join x in db.Departments on d.ParentDepartmentId equals x.DepartmentId
                         into gc
                     from x in gc.DefaultIfEmpty()
-                    where d.Number == id
+                    where d.Id == id
                     select new { Name = x.Name };
             Department department = db.Departments.Find(id);
             DepartmentViewModel qq = new DepartmentViewModel();
-            //DepartmentViewModel显示部门信息（部门表的固定字段）
+
+            /*Step1：部门表的固定字段*/
             if (q != null)
             {
                 foreach (var temp in q)
                 {
-                    qq.Number = department.Number;
+                    qq.DepartmentId = department.DepartmentId;
                     qq.Name = department.Name;
                     qq.ParentDepartmentName = temp.Name;
                     qq.StaffSize = department.StaffSize;
@@ -69,17 +81,17 @@ namespace Bonsaii.Controllers
             }
             else
             {
-                qq.Number = department.Number;
+                qq.DepartmentId = department.DepartmentId;
                 qq.Name = department.Name;
                 qq.ParentDepartmentName = null;
                 qq.StaffSize = department.StaffSize;
                 qq.Remark = department.Remark;
             }
-            //DepartmentViewModel显示部门信息（部门表变化的字段）
+            /*Step2：查找部门表预留字段*/
             var p = (from df in db.DepartmentReserves
                      join rf in db.ReserveFields on df.FieldId equals rf.Id
                      where df.Number == id
-                     select new DepartmentViewModel { Description = rf.Description, Value = df.Value }).ToList();
+                     select new DepartmentViewModel {Id= df.Number,Description = rf.Description, Value = df.Value }).ToList();
             ViewBag.List = p;
 
             if (qq == null)
@@ -87,6 +99,7 @@ namespace Bonsaii.Controllers
                 return HttpNotFound();
             }
             return View(qq);
+
         }
 
         // GET: Department/Create
@@ -95,14 +108,14 @@ namespace Bonsaii.Controllers
             //实现下拉列表
             List<SelectListItem> item = db.Departments.ToList().Select(c => new SelectListItem
             {
-                Value = c.Number,//保存的值
+                Value = c.DepartmentId,//保存的值
                 Text = c.Name//显示的值
             }).ToList();
 
             //增加一个null选项
             SelectListItem i = new SelectListItem();
             i.Value = "";
-            i.Text = " ";
+            i.Text = "-请选择-";
             i.Selected = true;
             item.Add(i);
 
@@ -113,7 +126,6 @@ namespace Bonsaii.Controllers
             var recordList = (from p in db.ReserveFields where p.TableName == "Departments" select p).ToList();
             ViewBag.recordList = recordList;
 
-            //Session["recordList"] = recordList;
             return View();
         }
 
@@ -124,27 +136,37 @@ namespace Bonsaii.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Department department)
         {
-            //模型状态错误（为空）
             if (ModelState.IsValid)
             {
-                /*选出ReserveFields中部门相关的记录*/
+                /*Step1：如果上级部门为空则上级部门编号为公司Id*/
+                if (department.ParentDepartmentId == null) { department.ParentDepartmentId = this.CompanyId; }
+
+                /*Step2：部门编号唯一,应该用Ajax？？*/
+                //var find = (from p in db.Departments where p.DepartmentId == department.DepartmentId select p).FirstOrDefault();
+                //if (find != null) { ModelState.AddModelError("","部门编号已存在！" );} 
+
+                /*Step3：保存固定字段（为了生成主键Id）*/
+                db.Departments.Add(department);
+                db.SaveChanges();
+
+                /*Step4：显示预留字段名称*/
                 var recordList = (from p in db.ReserveFields where p.TableName == "Departments" select p).ToList();
                 ViewBag.recordList = recordList;
-                /*生成部门编号*/
-                department.Number = (new Random().Next(1111, 9999)).ToString();
-                /*遍历*/
+              
+                
+                /*Step5：保存预留字段的值*/
                 foreach (var temp in recordList)
                 {
                     DepartmentReserve dr = new DepartmentReserve();
-                    dr.Number = department.Number;
+                    dr.Number = department.Id;
                     dr.FieldId = temp.Id;
                     dr.Value = Request[temp.FieldName];
+                    /*占位，为了在Index中显示整齐的格式*/
+                    if (dr.Value == null) dr.Value = " ";
                     db.DepartmentReserves.Add(dr);
-                    /*把这行去掉之后即可运行*/
-                    //db.SaveChanges();
+                    db.SaveChanges();
                 }
-                db.Departments.Add(department);
-                db.SaveChanges();
+               
                 return RedirectToAction("Index");
             }
 
@@ -152,7 +174,7 @@ namespace Bonsaii.Controllers
         }
 
         // GET: Department/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -163,24 +185,24 @@ namespace Bonsaii.Controllers
             //实现下拉列表
             var item = db.Departments.ToList().Select(c => new SelectListItem
             {
-                Value = c.Number,//保存的值
+                Value = c.DepartmentId,//保存的值
                 Text = c.Name//显示的值
             }).ToList();
 
             //增加一个null选项
             SelectListItem i = new SelectListItem();
             i.Value = "";
-            i.Text = " ";
+            i.Text = "-请选择-";
             i.Selected = true;
             item.Add(i);
 
             //传值到页面
             ViewBag.List = item;
-         
+
             //DepartmentViewModel显示部门信息（部门表变化的字段）
             var pp = (from df in db.DepartmentReserves
-                     join rf in db.ReserveFields on df.FieldId equals rf.Id
-                     where df.Number == id
+                      join rf in db.ReserveFields on df.FieldId equals rf.Id
+                      where df.Number == id
                       select new DepartmentViewModel { Description = rf.Description, Value = df.Value }).ToList();
             ViewBag.ValueList = pp;
 
@@ -190,6 +212,7 @@ namespace Bonsaii.Controllers
             }
 
             return View(department);
+
         }
 
         // POST: Department/Edit/5
@@ -200,29 +223,30 @@ namespace Bonsaii.Controllers
         public ActionResult Edit(Department department)
         {
             //如果公司的上级部门编号ParentDepartmentId为空，将它置为null
-            if (department.ParentDepartmentId == "") department.ParentDepartmentId = null;
+            if (department.ParentDepartmentId == "") department.ParentDepartmentId = this.CompanyId;
 
             //模型状态错误（为空）
             if (ModelState.IsValid)
             {
-                Department d = db.Departments.Find(department.Number);
+                Department d = db.Departments.Find(department.Id);
                 if (d != null)
                 {
                     // 得到部门department.Number对应的所有动态变化的字段
                     var pp = (from df in db.DepartmentReserves
                               join rf in db.ReserveFields on df.FieldId equals rf.Id
-                             where df.Number == department.Number
+                              where df.Number == department.Id
                               select new DepartmentViewModel { Id = df.Id, Description = rf.Description, Value = df.Value }).ToList();
                     //对每个动态变化的字段进行赋值
                     foreach (var temp in pp)
                     {
-                        DepartmentReserve dr = db.DepartmentReserves.Find(temp.Id);                    
-                        dr.Value=Request[temp.Description];
+                        DepartmentReserve dr = db.DepartmentReserves.Find(temp.Id);
+                        dr.Value = Request[temp.Description];
                         db.SaveChanges();
                     }
-                    
+
 
                     d.Name = department.Name;
+                    d.DepartmentId = department.DepartmentId;
                     d.ParentDepartmentId = department.ParentDepartmentId;
                     d.Remark = department.Remark;
                     db.SaveChanges();
@@ -235,22 +259,22 @@ namespace Bonsaii.Controllers
                 ModelState.AddModelError("", "修改失败");
             }
             return View(department);
+
         }
 
         // GET: Department/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(int? id)
         {
-            // db = new BonsaiiDbContext(base.ConnectionString);
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             //左联：查询上级部门的名称
             var q = from d in db.Departments
-                    join x in db.Departments on d.ParentDepartmentId equals x.Number
+                    join x in db.Departments on d.ParentDepartmentId equals x.DepartmentId
                         into gc
                     from x in gc.DefaultIfEmpty()
-                    where d.Number == id
+                    where d.Id == id
                     select new { Name = x.Name };
             Department department = db.Departments.Find(id);
             DepartmentViewModel qq = new DepartmentViewModel();
@@ -259,7 +283,7 @@ namespace Bonsaii.Controllers
             {
                 foreach (var temp in q)
                 {
-                    qq.Number = department.Number;
+                    qq.DepartmentId = department.DepartmentId;
                     qq.Name = department.Name;
                     qq.ParentDepartmentName = temp.Name;
                     qq.StaffSize = department.StaffSize;
@@ -268,7 +292,7 @@ namespace Bonsaii.Controllers
             }
             else
             {
-                qq.Number = department.Number;
+                qq.DepartmentId = department.DepartmentId;
                 qq.Name = department.Name;
                 qq.ParentDepartmentName = null;
                 qq.StaffSize = department.StaffSize;
@@ -294,26 +318,47 @@ namespace Bonsaii.Controllers
         // POST: Department/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(int id)
         {
+            /*Step1：删除预留字段*/
             // 由于主外键关系，Departments是主表，DepartmentReserves是引用Departments表的信息。
             //只有先删除对应DepartmentReserve的动态变化的字段的信息
             var item = (from dr in db.DepartmentReserves
                         where dr.Number == id
-                        select new DepartmentViewModel { Id=dr.Id}).ToList();
-            foreach(var temp in item)
-            { 
-            DepartmentReserve drs = db.DepartmentReserves.Find(temp.Id);
-            db.DepartmentReserves.Remove(drs);
+                        select new DepartmentViewModel { Id = dr.Id }).ToList();
+            foreach (var temp in item)
+            {
+                DepartmentReserve drs = db.DepartmentReserves.Find(temp.Id);
+                db.DepartmentReserves.Remove(drs);
             }
             db.SaveChanges();
+
+            /*Step2：删除固定字段*/
             //删除Departments表对应的信息
             Department department = db.Departments.Find(id);
-        
+
             db.Departments.Remove(department);
             db.SaveChanges();
-           
+
             return RedirectToAction("Index");
+        }
+
+        /*判断部门编号是否唯一*/
+        [HttpPost]
+        public JsonResult DepartIdTest(string departmentId)
+        {
+            if (!String.IsNullOrEmpty(departmentId))
+            {
+                var find = (from p in db.Departments where p.DepartmentId == departmentId select p).ToList();
+                if (find.Count != 0)
+                {
+                    return Json(new { result = true, });
+                }
+                else { return Json(new { result = false, }); }
+            }
+            else
+                return null;
+           
         }
 
         protected override void Dispose(bool disposing)

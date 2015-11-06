@@ -43,6 +43,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EPPlus">
+      <HintPath>..\packages\EPPlus.4.0.4\lib\net20\EPPlus.dll</HintPath>
+    </Reference>
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\packages\NPOI.2.1.3.1\lib\net40\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
@@ -235,6 +238,8 @@
     <Compile Include="Controllers\ParamCodesController.cs" />
     <Compile Include="Controllers\PhraseController.cs" />
     <Compile Include="Controllers\PhraseSceneController.cs" />
+    <Compile Include="Models\Department\Department.cs" />
+    <Compile Include="Models\QTree.cs" />
     <Compile Include="Controllers\RecordDatetimeController.cs" />
     <Compile Include="Controllers\RecruitmentsController.cs" />
     <Compile Include="Controllers\ReserveRecordController.cs" />
@@ -252,6 +257,7 @@
     <Compile Include="Controllers\SuperRootController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\TmpDbContext.cs" />
+    <Compile Include="Controllers\TrainStartController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\WeekTagController.cs" />
     <Compile Include="Global.asax.cs">
@@ -300,6 +306,8 @@
     <Compile Include="Models\Staff\StaffReserve.cs" />
     <Compile Include="Models\Staff\StaffViewModel.cs" />
     <Compile Include="Models\SystemDbContext.cs" />
+    <Compile Include="Models\Train\TrainStart.cs" />
+    <Compile Include="Models\Train\TrainStartStaff.cs" />
     <Compile Include="Models\UserModels.cs" />
     <Compile Include="Models\UserPasswordInfo.cs" />
     <Compile Include="Models\UserRole.cs" />
@@ -365,6 +373,42 @@
     <Content Include="Scripts\jsTree\assets\jquery-1.10.2.min.js" />
     <Content Include="Scripts\jsTree\assets\jquery-2.1.4.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\qiao.js-master\plugins\_01_qtotop\qtotop.html" />
+    <Content Include="Scripts\qiao.js-master\plugins\_01_qtotop\qtotop.js" />
+    <Content Include="Scripts\qiao.js-master\plugins\_01_qtotop\qtotop.png" />
+    <Content Include="Scripts\qiao.js-master\plugins\_02_qmask\1.0\qmask-1.0-min.js" />
+    <Content Include="Scripts\qiao.js-master\plugins\_02_qmask\1.0\qmask-1.0.gif" />
+    <Content Include="Scripts\qiao.js-master\plugins\_02_qmask\1.0\qmask-1.0.html" />
+    <Content Include="Scripts\qiao.js-master\plugins\_02_qmask\1.0\qmask-1.0.js" />
+    <Content Include="Scripts\qiao.js-master\plugins\_02_qmask\2.0\qmask-2.0.css" />
+    <Content Include="Scripts\qiao.js-master\plugins\_02_qmask\2.0\qmask-2.0.html" />
+    <Content Include="Scripts\qiao.js-master\plugins\_02_qmask\2.0\qmask-2.0.js" />
+    <Content Include="Scripts\qiao.js-master\plugins\_02_qmask\2.0\qmask-2.0.min.css" />
+    <Content Include="Scripts\qiao.js-master\plugins\_02_qmask\2.0\qmask-2.0.min.js" />
+    <Content Include="Scripts\qiao.js-master\plugins\_02_qmask\3.0\qmask-3.0.css" />
+    <Content Include="Scripts\qiao.js-master\plugins\_02_qmask\3.0\qmask-3.0.html" />
+    <Content Include="Scripts\qiao.js-master\plugins\_02_qmask\3.0\qmask-3.0.js" />
+    <Content Include="Scripts\qiao.js-master\plugins\_03_qcode\qcode.html" />
+    <Content Include="Scripts\qiao.js-master\plugins\_03_qcode\qcode.js" />
+    <Content Include="Scripts\qiao.js-master\plugins\_04_qend\qend.html" />
+    <Content Include="Scripts\qiao.js-master\plugins\_04_qend\qend.js" />
+    <Content Include="Scripts\qiao.js-master\plugins\_05_qcookie\qcookie.html" />
+    <Content Include="Scripts\qiao.js-master\plugins\_05_qcookie\qcookie.js" />
+    <Content Include="Scripts\qiao.js-master\plugins\_06_qsearch\qsearch.html" />
+    <Content Include="Scripts\qiao.js-master\plugins\_06_qsearch\qsearch.js" />
+    <Content Include="Scripts\qiao.js-master\qiao-coolie\qiao.bs.js" />
+    <Content Include="Scripts\qiao.js-master\qiao-coolie\qiao.h.js" />
+    <Content Include="Scripts\qiao.js-master\qiao-coolie\qiao.other.js" />
+    <Content Include="Scripts\qiao.js-master\qiao-coolie\qiao.plugin.js" />
+    <Content Include="Scripts\qiao.js-master\qiao-coolie\qiao.util.js" />
+    <Content Include="Scripts\qiao.js-master\qiao.js" />
+    <Content Include="Scripts\qiao.js-master\qiao\qiao.bs.js" />
+    <Content Include="Scripts\qiao.js-master\qiao\qiao.util.js" />
+    <Content Include="Scripts\qiao.js-master\_other\_01_other_01_demo\uikoo9.gao.js" />
+    <Content Include="Scripts\qiao.js-master\_other\_01_other_01_demo\uikoo9.jquery.js" />
+    <Content Include="Scripts\qiao.js-master\_other\_01_other_01_demo\weixin.js" />
+    <Content Include="Scripts\qiao.js-master\_other\_01_other_02_todo\qiao.amazeui.js" />
+    <Content Include="Scripts\qiao.js-master\_other\_01_other_02_todo\qiao.easyui.js" />
     <Content Include="Scripts\treeview\css\bootstrap-treeview.css" />
     <Content Include="Scripts\treeview\js\bootstrap-treeview.js" />
     <Content Include="Scripts\_references.js" />
@@ -420,22 +464,6 @@
     <Content Include="Views\Shared\_LayoutRegister.cshtml" />
     <Content Include="Views\Test\Tree.cshtml" />
     <Content Include="Views\Test\JsTree.cshtml" />
-    <Content Include="Scripts\jsTree\assets\bootstrap\fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Scripts\jsTree\assets\bootstrap\fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="Scripts\jsTree\assets\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="Scripts\jsTree\assets\bootstrap\fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="Scripts\jsTree\assets\dist\themes\proton\fonts\titillium\titilliumweb-bold-webfont.eot" />
-    <Content Include="Scripts\jsTree\assets\dist\themes\proton\fonts\titillium\titilliumweb-bold-webfont.svg" />
-    <Content Include="Scripts\jsTree\assets\dist\themes\proton\fonts\titillium\titilliumweb-bold-webfont.ttf" />
-    <Content Include="Scripts\jsTree\assets\dist\themes\proton\fonts\titillium\titilliumweb-bold-webfont.woff" />
-    <Content Include="Scripts\jsTree\assets\dist\themes\proton\fonts\titillium\titilliumweb-extralight-webfont.eot" />
-    <Content Include="Scripts\jsTree\assets\dist\themes\proton\fonts\titillium\titilliumweb-extralight-webfont.svg" />
-    <Content Include="Scripts\jsTree\assets\dist\themes\proton\fonts\titillium\titilliumweb-extralight-webfont.ttf" />
-    <Content Include="Scripts\jsTree\assets\dist\themes\proton\fonts\titillium\titilliumweb-extralight-webfont.woff" />
-    <Content Include="Scripts\jsTree\assets\dist\themes\proton\fonts\titillium\titilliumweb-regular-webfont.eot" />
-    <Content Include="Scripts\jsTree\assets\dist\themes\proton\fonts\titillium\titilliumweb-regular-webfont.svg" />
-    <Content Include="Scripts\jsTree\assets\dist\themes\proton\fonts\titillium\titilliumweb-regular-webfont.ttf" />
-    <Content Include="Scripts\jsTree\assets\dist\themes\proton\fonts\titillium\titilliumweb-regular-webfont.woff" />
     <Content Include="Views\Test\JsTreeTest.cshtml" />
     <Content Include="Views\Account\CreateAdmin.cshtml" />
     <Content Include="Views\User\CreateAdmin.cshtml" />
@@ -589,6 +617,31 @@
     <Content Include="Views\StaffSkill\Details.cshtml" />
     <Content Include="Views\StaffSkill\Edit.cshtml" />
     <Content Include="Views\StaffSkill\Index.cshtml" />
+    <Content Include="Views\TrainStart\Create.cshtml" />
+    <Content Include="Views\TrainStart\Delete.cshtml" />
+    <Content Include="Views\TrainStart\Details.cshtml" />
+    <Content Include="Views\TrainStart\Edit.cshtml" />
+    <Content Include="Views\TrainStart\Index.cshtml" />
+    <Content Include="Scripts\qiao.js-master\.project" />
+    <Content Include="Scripts\qiao.js-master\LICENSE" />
+    <Content Include="Scripts\qiao.js-master\README.md" />
+    <Content Include="Views\Test\TestTree.cshtml" />
+    <Content Include="Scripts\jsTree\assets\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Scripts\jsTree\assets\bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Scripts\jsTree\assets\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Scripts\jsTree\assets\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Scripts\jsTree\assets\dist\themes\proton\fonts\titillium\titilliumweb-bold-webfont.eot" />
+    <Content Include="Scripts\jsTree\assets\dist\themes\proton\fonts\titillium\titilliumweb-bold-webfont.svg" />
+    <Content Include="Scripts\jsTree\assets\dist\themes\proton\fonts\titillium\titilliumweb-bold-webfont.ttf" />
+    <Content Include="Scripts\jsTree\assets\dist\themes\proton\fonts\titillium\titilliumweb-bold-webfont.woff" />
+    <Content Include="Scripts\jsTree\assets\dist\themes\proton\fonts\titillium\titilliumweb-extralight-webfont.eot" />
+    <Content Include="Scripts\jsTree\assets\dist\themes\proton\fonts\titillium\titilliumweb-extralight-webfont.svg" />
+    <Content Include="Scripts\jsTree\assets\dist\themes\proton\fonts\titillium\titilliumweb-extralight-webfont.ttf" />
+    <Content Include="Scripts\jsTree\assets\dist\themes\proton\fonts\titillium\titilliumweb-extralight-webfont.woff" />
+    <Content Include="Scripts\jsTree\assets\dist\themes\proton\fonts\titillium\titilliumweb-regular-webfont.eot" />
+    <Content Include="Scripts\jsTree\assets\dist\themes\proton\fonts\titillium\titilliumweb-regular-webfont.svg" />
+    <Content Include="Scripts\jsTree\assets\dist\themes\proton\fonts\titillium\titilliumweb-regular-webfont.ttf" />
+    <Content Include="Scripts\jsTree\assets\dist\themes\proton\fonts\titillium\titilliumweb-regular-webfont.woff" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -599,7 +652,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="files\" />
+    <Folder Include="tmp\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -255,6 +255,7 @@ namespace Bonsaii.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        
         public JsonResult SearchStaff(string staffNumber)
         {
             List<Object> obj = new List<Object>();

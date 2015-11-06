@@ -99,26 +99,6 @@ namespace Bonsaii.Models
         [Display(Name = "备注")]
         public string Remark { get; set; }
     }
-    [Table("Departments")]
-    public class Department
-    {
-        [Key]
-        //[Required]
-        [Display(Name = "部门编号")]
-        public string Number { get; set; }
-
-        [Required]
-        [Display(Name = "部门名称")]
-        public string Name { get; set; }
-
-        [Display(Name = "上级部门")]
-        public string ParentDepartmentId { get; set; }
-        [Display(Name = "编制人数")]
-        public int StaffSize { get; set; }
-
-        [Display(Name = "备注")]
-       // [DataType(DataType.MultilineText)]
-        public string Remark { get; set; }
-    }
+   
    
 }

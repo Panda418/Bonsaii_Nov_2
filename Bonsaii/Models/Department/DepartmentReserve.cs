@@ -13,9 +13,8 @@ namespace Bonsaii.Models
         public int Id { get; set; }
         public int FieldId { get; set; }
 
-        [StringLength(50)]
         [Display(Name = "×Ö¶ÎÃû")]
-        public string Number { get; set; }
+        public int Number { get; set; }
       
         [StringLength(50)]
         [Display(Name = "ÃèÊö")]
