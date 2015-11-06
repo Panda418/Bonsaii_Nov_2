@@ -12,7 +12,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Number)
+            @Html.DisplayNameFor(model => model.DepartmentId)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Name)
@@ -42,7 +42,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Number)
+            @Html.DisplayFor(modelItem => item.DepartmentId)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Name)
@@ -62,7 +62,7 @@
         @* DepartmentViewModel显示部门信息（部门表变化的字段） *@
         @foreach (var temp in @ViewBag.List)
         {
-            if(temp.Number==item.Number)
+            if(temp.Id==item.Id)
             { 
             <th>
                 @temp.Value
@@ -71,9 +71,9 @@
         }
 
         <td>
-            @Html.ActionLink("修改", "Edit", new { id=item.Number }) |
-            @Html.ActionLink("详情", "Details", new { id = item.Number }) |
-            @Html.ActionLink("删除", "Delete", new { id = item.Number})
+            @Html.ActionLink("修改", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("详情", "Details", new { id = item.Id }) |
+            @Html.ActionLink("删除", "Delete", new { id = item.Id })
         </td>
     </tr>
 }

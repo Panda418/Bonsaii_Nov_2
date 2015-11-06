@@ -79,6 +79,39 @@ namespace Bonsaii.Controllers
             return View(staff);
         }
 
+        /*实现单据类别搜索：显示单据类别编号和单据类别名称*/
+        [HttpPost]
+        public JsonResult BillTypeNumberSearch(string number)
+        {
+
+            try
+            {
+                var items = (from p in db.BillProperties where p.Type.Contains(number) || p.TypeName.Contains(number) select p.Type + " " + p.TypeName).ToList();
+
+                return Json(new
+                {
+                    success = true,
+                    data = items
+                });
+            }
+            catch (Exception e) { return Json(new { success = false, msg = e.Message }); }
+
+        }
+
+        /*实现:自动填充单据名称*/
+        [HttpPost]
+        public JsonResult SendBillTypeNumber(string BillTypeNumber)
+        {
+            StaffChange staffChange = new StaffChange();
+            var item = (from p in db.BillProperties where BillTypeNumber == p.Type select p).FirstOrDefault();
+            string str = Generate.GenerateBillNumber(BillTypeNumber, this.ConnectionString);
+            staffChange.BillNumber = str;
+            staffChange.BillTypeName = item.TypeName;
+            return Json(staffChange);
+        }
+
+
+
         // GET: Staff/Create
         public ActionResult Create()
         {
@@ -91,7 +124,7 @@ namespace Bonsaii.Controllers
             //增加一个null选项
             SelectListItem i = new SelectListItem();
             i.Value = "";
-            i.Text = " ";
+            i.Text = "-请选择-";
             i.Selected = true;
             item.Add(i);
 
@@ -153,13 +186,6 @@ namespace Bonsaii.Controllers
                 var tmp = db.Staffs.Where(p => p.StaffNumber.Equals(staff.StaffNumber)).ToList();
                     if (tmp.Count != 0)
                     {
-                        //List<SelectListItem> item = db.Departments.ToList().Select(c => new SelectListItem
-                        //{
-                        //    Value = c.Name,//保存的值
-                        //    Text = c.Name//显示的值
-                        //}).ToList();
-                        //ViewBag.List = item;
-
                         ModelState.AddModelError("", "抱歉，该工号已经被注册！");
 
                         return View(staff);

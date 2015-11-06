@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Bonsaii.Models;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -82,6 +84,51 @@ namespace Bonsaii.Controllers
             //}
 
             return "Bonsaii" + CompanyId;
+        }
+
+
+        /// <summary>
+        /// 根据单据类型编号，生成单号
+        /// </summary>
+        /// <param name="BillTypeNumber">单据类型编号,连接字符串</param>
+        /// <returns>单号</returns>
+        public static string GenerateBillNumber(string BillTypeNumber, string connString)
+        {
+            BonsaiiDbContext db = new BonsaiiDbContext(connString);
+            BillPropertyModels tmp = db.BillProperties.Where(p => p.Type == BillTypeNumber).Single();
+            string date = DateTime.Now.ToString("yyyyMMdd");
+            //为流水号补充零
+            string SerialNumber = AddZero(tmp.Count, tmp.SerialNumber);
+            //更新单号的计数值
+            tmp.Count++;
+            db.Entry(tmp).State = EntityState.Modified;
+            db.SaveChanges();
+
+            switch (tmp.CodeMethod)
+            {
+                case CodeMethod.One:
+                    return DateTime.Now.ToString("yyyyMMdd").ToString() + SerialNumber;
+                case CodeMethod.Two:
+                    return DateTime.Now.ToString("yyyyMM").ToString() + SerialNumber;
+                case CodeMethod.Three:
+                    return tmp.Code.Substring(0, 10 - tmp.SerialNumber) + SerialNumber;
+                default:
+                    return "";
+            }
+        }
+
+        /// <summary>
+        /// 将SerialNumber补零凑够length长度的数值
+        /// </summary>
+        /// <param name="SerialNumber"></param>
+        /// <param name="length"></param>
+        /// <returns></returns>
+        public static string AddZero(int SerialNumber, int length)
+        {
+            string tmp = SerialNumber.ToString();
+            while (tmp.Length != length)
+                tmp = tmp.Insert(0, "0");
+            return tmp;
         }
     }
 }

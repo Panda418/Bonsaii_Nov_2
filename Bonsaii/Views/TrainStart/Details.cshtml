@@ -1,0 +1,98 @@
+﻿@model Bonsaii.Models.Train.TrainStart
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TrainStart</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.BillTypeNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BillTypeNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BillTypeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BillTypeName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BillNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BillNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TrainType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TrainType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EndDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TrainCost)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TrainCost)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TellNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TellNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AuditStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AuditStatus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Remark)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Remark)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

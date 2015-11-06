@@ -13,11 +13,11 @@
         <dl class="dl-horizontal">
 
             <dt>
-                @Html.DisplayNameFor(model => model.Number)
+                @Html.DisplayNameFor(model => model.DepartmentId)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.Number)
+                @Html.DisplayFor(model => model.DepartmentId)
             </dd>
 
             <dt>
@@ -65,6 +65,6 @@
         </dl>
     </div>
     <p>
-        @Html.ActionLink("修改", "Edit", new { id = Model.Number }) |
+        @Html.ActionLink("修改", "Edit", new { id = Model.Id }) |
          @Html.ActionLink("返回", "Index")
     </p>
