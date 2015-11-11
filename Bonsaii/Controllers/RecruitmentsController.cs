@@ -74,7 +74,8 @@ namespace Bonsaii.Controllers
                 Skill = Request["Skill"],
                 Others = Request["Others"],
                 Status = "等待招聘",
-                IsAudit = true
+                IsAudit = true,
+                IsPublished = false
             };
             if (ModelState.IsValid)
             {
@@ -286,6 +287,10 @@ namespace Bonsaii.Controllers
             return View(db.Recruitments.Find(id));
         }
 
+        public ActionResult PreviewRecruitments(int? id)
+        {
+            return View(db.Recruitments.Find(id));
+        }
 
         [HttpPost]
         [ValidateInput(false)]
@@ -298,10 +303,10 @@ namespace Bonsaii.Controllers
              * 2、需要在web.config配置中添加<httpRuntime requestValidationMode="2.0"/>配置
              * */
             tmp.PublishVersion = Request["content"];
-
+            tmp.IsPublished = true;
             db.Entry(tmp).State = EntityState.Modified;
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("PublishRecruitments");
         }
 
 

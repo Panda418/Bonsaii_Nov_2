@@ -57,5 +57,7 @@ namespace Bonsaii.Models
         public bool IsAudit { get; set; }
 
         public string PublishVersion { get; set; }
+
+        public bool IsPublished { get; set; }
     }
 }

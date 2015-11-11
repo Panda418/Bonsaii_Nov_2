@@ -534,12 +534,32 @@ namespace Bonsaii.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await UserManager.FindByNameAsync(model.Email);
-                if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
+                //首先核对用户的短信验证码是否合法
+                using (SystemDbContext vCode = new SystemDbContext())
                 {
-                    // 请不要显示该用户不存在或者未经确认
-                    return View("ForgotPasswordConfirmation");
+                    var CurrentUserCode = vCode.VerifyCodes.Find(model.PhoneNumber);
+                    DateTime CurTime = System.DateTime.Now;
+                    if (CurTime > CurrentUserCode.OverTime)     //用户短信验证码超时
+                    {
+                        ModelState.AddModelError("", "抱歉，您的验证码已经过期！");
+                        return View(model);
+                    }
+                    else if (!CurrentUserCode.Code.Equals(model.Code))
+                    {
+                        ModelState.AddModelError("", "抱歉，您的验证码输入错误！");
+                        return View(model);
+                    }
                 }
+
+
+                ApplicationUser user = UserManager.FindByName(model.PhoneNumber);
+                var code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                var result = UserManager.ResetPassword(user.Id, code, model.Password);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("ResetPasswordConfirmation");
+                }
+
 
                 // 有关如何启用帐户确认和密码重置的详细信息，请访问 http://go.microsoft.com/fwlink/?LinkID=320771
                 // 发送包含此链接的电子邮件
@@ -552,6 +572,7 @@ namespace Bonsaii.Controllers
             // 如果我们进行到这一步时某个地方出错，则重新显示表单
             return View(model);
         }
+
 
         //
         // GET: /Account/ForgotPasswordConfirmation
@@ -603,6 +624,39 @@ namespace Bonsaii.Controllers
             return View();
         }
 
+
+
+        public ActionResult ModifyPassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ModifyPassword(ModifyPasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            using (SystemDbContext con = new SystemDbContext())
+            {
+                ApplicationUser user = UserManager.FindByName(model.UserName);
+                var result = UserManager.ChangePassword(user.Id, model.Password, model.NewPassword);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("ModifyPasswordConfirmation");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "用户名或密码错误！");
+                    return View(model);
+                }
+            }
+        }
+
+        public ActionResult ModifyPasswordConfirmation()
+        {
+            return View();
+        }
         //
         // POST: /Account/ExternalLogin
         [HttpPost]
