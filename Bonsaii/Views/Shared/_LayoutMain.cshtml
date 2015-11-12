@@ -5,14 +5,17 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>盆景企业管理平台</title>
+    <script src="~/Scripts/jquery-1.11.2.min.js"></script>
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <script src="~/Content/bootstrap.js"></script>
     <link href="~/Content/Site.css" rel="stylesheet" />
     <link href="~/Content/PagedList.css" rel="stylesheet" />
-    <script src="~/Scripts/jquery-1.11.2.min.js"></script>
+
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
     <link href="~/Content/jquery-accordion-menu.css" rel="stylesheet" />
     <script src="~/Scripts/jquery-accordion-menu.js"></script>
+
 
 </head>
 <body>
@@ -81,7 +84,7 @@
                             <li><a>招聘管理</a>
                                 <ul class="submenu">
                                     <li>@Html.ActionLink("招聘需求管理", "Index", "Recruitments")</li>
-                                    <li><a href="#">招聘信息发布 </a></li>
+                                    <li>@Html.ActionLink("招聘信息发布","PublishRecruitments","Recruitments")</li>
                                     <li><a href="#">应聘管理 </a></li>
                                 </ul>
                             <li><a>培训管理</a>
@@ -101,6 +104,15 @@
                             <li>@Html.ActionLink("日历", "Index", "WeekTag")</li>
                          </ul>
                     </li>
+
+                    <li>
+                        <a href="#">任务管理 </a>
+                        <ul class="submenu">
+                            <li>@Html.ActionLink("数据订阅预警", "Index", "DataSubscriptions")</li>
+                            <li>@Html.ActionLink("待办事项", "", "")</li>
+                        </ul>
+                    </li>
+
                 </ul>
 
             </div>

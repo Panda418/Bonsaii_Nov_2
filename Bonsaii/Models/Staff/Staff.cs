@@ -40,7 +40,7 @@ namespace Bonsaii.Models
         [RegularExpression(@"^(\d{15}|\d{18}|\d{17}[x])$", ErrorMessage = "身份证号(15位或18位数字)")]
         public string IdentificationNumber { get; set; }
         [Display(Name = "入职日期")]
-        [Required]
+
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}")]
         public Nullable<DateTime> Entrydate { get; set; }
         [Display(Name = "班次")]
@@ -64,7 +64,7 @@ namespace Bonsaii.Models
         [Display(Name = "婚姻状况")]
         public string MaritalStatus { get; set; }
         [Display(Name = "出生日期")]
-        [Required]
+
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}")]
         public Nullable<DateTime> BirthDate { get; set; }
         [Display(Name = "籍贯")]

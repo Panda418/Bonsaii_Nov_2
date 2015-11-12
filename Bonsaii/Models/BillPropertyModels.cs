@@ -10,15 +10,16 @@ namespace Bonsaii.Models
     {
         public int Id { get; set; }
 
-        [Required]
-        [Display(Name = "单据类别")]
-        [RegularExpression("[0-9]{4}", ErrorMessage = "请输入4位的{0}")]
+        [Display(Name="单据类别")]
+        public string BillSort { get; set; }
+
+        [Display(Name = "单据性质")]
         public string Type { get; set; }
         [Required]
-        [Display(Name = "单据名称")]
+        [Display(Name = "单据性质名称")]
         [StringLength(50)]
         public string TypeName { get; set; }
-        [Display(Name = "单据全称")]
+        [Display(Name = "单据性质全称")]
         [StringLength(50)]
         public string TypeFullName { get; set; }
 

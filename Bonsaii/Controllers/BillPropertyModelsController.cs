@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Bonsaii.Models;
+using Bonsaii.Models.GlobalStaticVaribles;
 
 namespace Bonsaii.Controllers
 {
@@ -44,6 +45,7 @@ namespace Bonsaii.Controllers
             }).ToList();
 
             ViewBag.List = item;
+            ViewBag.BillSortList = BillSortMethod.GetBillSortMethod(base.ConnectionString);
             return View();
         }
         // POST: BillPropertyModels/Create
@@ -82,6 +84,18 @@ namespace Bonsaii.Controllers
                         billPropertyModels.SerialNumber = 2;
                         break;
                 }
+                //获取单据的编号值
+                BillSort tmpBillSort = db.BillSorts.Find(billPropertyModels.BillSort);
+                string num = tmpBillSort.SerialNumber.ToString();
+                if (num.Length == 1)
+                    num = num.Insert(0, "0");
+                //更新BillSort表中某一类型单据可用的最大编号值
+                tmpBillSort.SerialNumber += 2;
+                db.Entry(tmpBillSort).State = EntityState.Modified;
+
+                //拼凑出真实的单据性质编号（单据的类型编号＋单据的可用最大编号值)
+                billPropertyModels.Type = billPropertyModels.BillSort + num;
+
                 db.BillProperties.Add(billPropertyModels);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -125,7 +139,7 @@ namespace Bonsaii.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Type,TypeName,TypeFullName,CodeMethod,Year,Month,Day,SerialNumber,Code,IsAutoAudit,IsApprove,IsLimitInput,IsAscOrDesc")] BillPropertyModels billPropertyModels)
+        public ActionResult Edit(BillPropertyModels billPropertyModels)
         {
             if (ModelState.IsValid)
             {

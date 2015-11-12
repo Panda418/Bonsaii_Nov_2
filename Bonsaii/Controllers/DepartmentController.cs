@@ -56,6 +56,14 @@ namespace Bonsaii.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+<<<<<<< HEAD
+            Department department = db.Departments.Find(id);
+            if (department == null)
+            {
+                return HttpNotFound();
+            }
+            return View(department);
+=======
 
             //左联：查询上级部门的名称
             var q = from d in db.Departments
@@ -100,6 +108,7 @@ namespace Bonsaii.Controllers
             }
             return View(qq);
 
+>>>>>>> 7f6daae59d3f52aeb49e3b88babd3194b0c3112d
         }
 
         // GET: Department/Create
@@ -138,6 +147,17 @@ namespace Bonsaii.Controllers
         {
             if (ModelState.IsValid)
             {
+<<<<<<< HEAD
+                /*先保存部门固定的字段（为了生成主键Id）*/
+                db.Departments.Add(department);
+                db.SaveChanges();
+                /*选出ReserveFields中部门相关的记录*/
+                var recordList = (from p in db.ReserveFields where p.TableName == "Departments" select p).ToList();
+                ViewBag.recordList = recordList;
+                /*生成部门编号*/
+                // 
+                /*遍历*/
+=======
                 /*Step1：如果上级部门为空则上级部门编号为公司Id*/
                 if (department.ParentDepartmentId == null) { department.ParentDepartmentId = this.CompanyId; }
 
@@ -155,6 +175,7 @@ namespace Bonsaii.Controllers
               
                 
                 /*Step5：保存预留字段的值*/
+>>>>>>> 7f6daae59d3f52aeb49e3b88babd3194b0c3112d
                 foreach (var temp in recordList)
                 {
                     DepartmentReserve dr = new DepartmentReserve();
@@ -181,6 +202,8 @@ namespace Bonsaii.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Department department = db.Departments.Find(id);
+<<<<<<< HEAD
+=======
 
             //实现下拉列表
             var item = db.Departments.ToList().Select(c => new SelectListItem
@@ -206,11 +229,11 @@ namespace Bonsaii.Controllers
                       select new DepartmentViewModel { Description = rf.Description, Value = df.Value }).ToList();
             ViewBag.ValueList = pp;
 
+>>>>>>> 7f6daae59d3f52aeb49e3b88babd3194b0c3112d
             if (department == null)
             {
                 return HttpNotFound();
             }
-
             return View(department);
 
         }
@@ -220,8 +243,15 @@ namespace Bonsaii.Controllers
         // 详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Department department)
+        public ActionResult Edit([Bind(Include = "Number,DepartmentId,Name,ParentDepartmentId,StaffSize,Remark")] Department department)
         {
+<<<<<<< HEAD
+            if (ModelState.IsValid)
+            {
+                db.Entry(department).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+=======
             //如果公司的上级部门编号ParentDepartmentId为空，将它置为null
             if (department.ParentDepartmentId == "") department.ParentDepartmentId = this.CompanyId;
 
@@ -257,6 +287,7 @@ namespace Bonsaii.Controllers
             {
                 //自带的ValidationSummary提示
                 ModelState.AddModelError("", "修改失败");
+>>>>>>> 7f6daae59d3f52aeb49e3b88babd3194b0c3112d
             }
             return View(department);
 
@@ -269,6 +300,9 @@ namespace Bonsaii.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+<<<<<<< HEAD
+            Department department = db.Departments.Find(id);
+=======
             //左联：查询上级部门的名称
             var q = from d in db.Departments
                     join x in db.Departments on d.ParentDepartmentId equals x.DepartmentId
@@ -304,15 +338,12 @@ namespace Bonsaii.Controllers
                      where df.Number == id
                      select new DepartmentViewModel { Description = rf.Description, Value = df.Value }).ToList();
             ViewBag.List = p;
+>>>>>>> 7f6daae59d3f52aeb49e3b88babd3194b0c3112d
             if (department == null)
             {
                 return HttpNotFound();
             }
-            if (qq == null)
-            {
-                return HttpNotFound();
-            }
-            return View(qq);
+            return View(department);
         }
 
         // POST: Department/Delete/5
@@ -320,6 +351,11 @@ namespace Bonsaii.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+<<<<<<< HEAD
+            Department department = db.Departments.Find(id);
+            db.Departments.Remove(department);
+            db.SaveChanges();
+=======
             /*Step1：删除预留字段*/
             // 由于主外键关系，Departments是主表，DepartmentReserves是引用Departments表的信息。
             //只有先删除对应DepartmentReserve的动态变化的字段的信息
@@ -340,6 +376,7 @@ namespace Bonsaii.Controllers
             db.Departments.Remove(department);
             db.SaveChanges();
 
+>>>>>>> 7f6daae59d3f52aeb49e3b88babd3194b0c3112d
             return RedirectToAction("Index");
         }
 

@@ -34,7 +34,6 @@ namespace Bonsaii.Models
 
 
         public DbSet<UserRole> UserRoles { get; set; }
-       // public System.Data.Entity.DbSet<Bonsaii.Models.> Departments { get; set; }
 
         public System.Data.Entity.DbSet<Bonsaii.Models.Phrase> Phrases { get; set; }
 
@@ -66,6 +65,9 @@ namespace Bonsaii.Models
         public DbSet<StaffParam> StaffParams { get; set; }
         public DbSet<StaffParamType> StaffParamTypes { get; set; }
 
+
+        public DbSet<Department> Departments { get; set; }
+        public DbSet<DepartmentReserve> DepartmentReserves { get; set; }
         public System.Data.Entity.DbSet<Bonsaii.Models.StaffBasicParam> StaffBasicParams { get; set; }
 
         public System.Data.Entity.DbSet<Bonsaii.Models.Recruitments> Recruitments { get; set; }
@@ -78,13 +80,16 @@ namespace Bonsaii.Models
         public System.Data.Entity.DbSet<Bonsaii.Models.Contract> Contracts { get; set; }
         public System.Data.Entity.DbSet<Bonsaii.Models.StaffSkill> StaffSkills { get; set; }
 
-        public System.Data.Entity.DbSet<Bonsaii.Models.DepartmentReserve> DepartmentReserves { get; set; }
 
         public System.Data.Entity.DbSet<Bonsaii.Models.ReserveField> ReserveFields { get; set; }
         public System.Data.Entity.DbSet<Bonsaii.Models.StaffSkillReserve> StaffSkillReserves { get; set; }
         public System.Data.Entity.DbSet<Bonsaii.Models.StaffReserve> StaffReserves { get; set; }
 
+        public DbSet<DataSubscriptions> DataSubscriptions { get; set; }
+
+        public DbSet<BillSort> BillSorts { get; set; }
+
+        public DbSet<BillStaffMapping> BillStaffMappings { get; set; }
         public System.Data.Entity.DbSet<Bonsaii.Models.Train.TrainStart> TrainStarts { get; set; }
-        public System.Data.Entity.DbSet<Bonsaii.Models.Department> Departments { get; set; }
     }
 }

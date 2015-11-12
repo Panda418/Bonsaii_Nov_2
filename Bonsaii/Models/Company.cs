@@ -100,5 +100,4 @@ namespace Bonsaii.Models
         public string Remark { get; set; }
     }
    
-   
 }
