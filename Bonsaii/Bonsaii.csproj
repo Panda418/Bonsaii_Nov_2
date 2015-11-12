@@ -239,6 +239,8 @@
     <Compile Include="Controllers\ParamCodesController.cs" />
     <Compile Include="Controllers\PhraseController.cs" />
     <Compile Include="Controllers\PhraseSceneController.cs" />
+    <Compile Include="Models\Department\Department.cs" />
+    <Compile Include="Models\QTree.cs" />
     <Compile Include="Controllers\RecordDatetimeController.cs" />
     <Compile Include="Controllers\RecruitmentsController.cs" />
     <Compile Include="Controllers\ReserveRecordController.cs" />
@@ -256,6 +258,7 @@
     <Compile Include="Controllers\SuperRootController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\TmpDbContext.cs" />
+    <Compile Include="Controllers\TrainStartController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\WeekTagController.cs" />
     <Compile Include="Global.asax.cs">
@@ -310,6 +313,8 @@
     <Compile Include="Models\Staff\StaffReserve.cs" />
     <Compile Include="Models\Staff\StaffViewModel.cs" />
     <Compile Include="Models\SystemDbContext.cs" />
+    <Compile Include="Models\Train\TrainStart.cs" />
+    <Compile Include="Models\Train\TrainStartStaff.cs" />
     <Compile Include="Models\UserModels.cs" />
     <Compile Include="Models\UserPasswordInfo.cs" />
     <Compile Include="Models\UserRole.cs" />
@@ -748,22 +753,6 @@
     <Content Include="Views\Shared\_LayoutRegister.cshtml" />
     <Content Include="Views\Test\Tree.cshtml" />
     <Content Include="Views\Test\JsTree.cshtml" />
-    <Content Include="Scripts\jsTree\assets\bootstrap\fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Scripts\jsTree\assets\bootstrap\fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="Scripts\jsTree\assets\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="Scripts\jsTree\assets\bootstrap\fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="Scripts\jsTree\assets\dist\themes\proton\fonts\titillium\titilliumweb-bold-webfont.eot" />
-    <Content Include="Scripts\jsTree\assets\dist\themes\proton\fonts\titillium\titilliumweb-bold-webfont.svg" />
-    <Content Include="Scripts\jsTree\assets\dist\themes\proton\fonts\titillium\titilliumweb-bold-webfont.ttf" />
-    <Content Include="Scripts\jsTree\assets\dist\themes\proton\fonts\titillium\titilliumweb-bold-webfont.woff" />
-    <Content Include="Scripts\jsTree\assets\dist\themes\proton\fonts\titillium\titilliumweb-extralight-webfont.eot" />
-    <Content Include="Scripts\jsTree\assets\dist\themes\proton\fonts\titillium\titilliumweb-extralight-webfont.svg" />
-    <Content Include="Scripts\jsTree\assets\dist\themes\proton\fonts\titillium\titilliumweb-extralight-webfont.ttf" />
-    <Content Include="Scripts\jsTree\assets\dist\themes\proton\fonts\titillium\titilliumweb-extralight-webfont.woff" />
-    <Content Include="Scripts\jsTree\assets\dist\themes\proton\fonts\titillium\titilliumweb-regular-webfont.eot" />
-    <Content Include="Scripts\jsTree\assets\dist\themes\proton\fonts\titillium\titilliumweb-regular-webfont.svg" />
-    <Content Include="Scripts\jsTree\assets\dist\themes\proton\fonts\titillium\titilliumweb-regular-webfont.ttf" />
-    <Content Include="Scripts\jsTree\assets\dist\themes\proton\fonts\titillium\titilliumweb-regular-webfont.woff" />
     <Content Include="Views\Test\JsTreeTest.cshtml" />
     <Content Include="Views\Account\CreateAdmin.cshtml" />
     <Content Include="Views\User\CreateAdmin.cshtml" />
@@ -912,6 +901,7 @@
     <Content Include="Views\StaffSkill\Details.cshtml" />
     <Content Include="Views\StaffSkill\Edit.cshtml" />
     <Content Include="Views\StaffSkill\Index.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\Account\ModifyPassword.cshtml" />
     <Content Include="Views\Account\ModifyPasswordConfirmation.cshtml" />
     <Content Include="Views\Recruitments\PreviewRecruitments.cshtml" />
@@ -940,6 +930,33 @@
     <Content Include="Views\Department\Edit.cshtml" />
     <Content Include="Views\Department\Index.cshtml" />
     <Content Include="Views\DataSubscriptions\Create.cshtml" />
+=======
+    <Content Include="Views\TrainStart\Create.cshtml" />
+    <Content Include="Views\TrainStart\Delete.cshtml" />
+    <Content Include="Views\TrainStart\Details.cshtml" />
+    <Content Include="Views\TrainStart\Edit.cshtml" />
+    <Content Include="Views\TrainStart\Index.cshtml" />
+    <Content Include="Scripts\qiao.js-master\.project" />
+    <Content Include="Scripts\qiao.js-master\LICENSE" />
+    <Content Include="Scripts\qiao.js-master\README.md" />
+    <Content Include="Views\Test\TestTree.cshtml" />
+    <Content Include="Scripts\jsTree\assets\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Scripts\jsTree\assets\bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Scripts\jsTree\assets\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Scripts\jsTree\assets\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Scripts\jsTree\assets\dist\themes\proton\fonts\titillium\titilliumweb-bold-webfont.eot" />
+    <Content Include="Scripts\jsTree\assets\dist\themes\proton\fonts\titillium\titilliumweb-bold-webfont.svg" />
+    <Content Include="Scripts\jsTree\assets\dist\themes\proton\fonts\titillium\titilliumweb-bold-webfont.ttf" />
+    <Content Include="Scripts\jsTree\assets\dist\themes\proton\fonts\titillium\titilliumweb-bold-webfont.woff" />
+    <Content Include="Scripts\jsTree\assets\dist\themes\proton\fonts\titillium\titilliumweb-extralight-webfont.eot" />
+    <Content Include="Scripts\jsTree\assets\dist\themes\proton\fonts\titillium\titilliumweb-extralight-webfont.svg" />
+    <Content Include="Scripts\jsTree\assets\dist\themes\proton\fonts\titillium\titilliumweb-extralight-webfont.ttf" />
+    <Content Include="Scripts\jsTree\assets\dist\themes\proton\fonts\titillium\titilliumweb-extralight-webfont.woff" />
+    <Content Include="Scripts\jsTree\assets\dist\themes\proton\fonts\titillium\titilliumweb-regular-webfont.eot" />
+    <Content Include="Scripts\jsTree\assets\dist\themes\proton\fonts\titillium\titilliumweb-regular-webfont.svg" />
+    <Content Include="Scripts\jsTree\assets\dist\themes\proton\fonts\titillium\titilliumweb-regular-webfont.ttf" />
+    <Content Include="Scripts\jsTree\assets\dist\themes\proton\fonts\titillium\titilliumweb-regular-webfont.woff" />
+>>>>>>> 7f6daae59d3f52aeb49e3b88babd3194b0c3112d
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

@@ -19,6 +19,7 @@ namespace Bonsaii.Models
 
         [Display(Name = "上级部门")]
         public string ParentDepartmentName { get; set; }
+
         [Display(Name = "编制人数")]
         public int StaffSize { get; set; }
 

@@ -99,6 +99,10 @@ namespace Bonsaii.Models
         [Display(Name = "备注")]
         public string Remark { get; set; }
     }
+<<<<<<< HEAD
 
+=======
+   
+>>>>>>> 7f6daae59d3f52aeb49e3b88babd3194b0c3112d
    
 }

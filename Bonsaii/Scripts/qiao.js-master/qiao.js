@@ -461,7 +461,11 @@ qiao.bs.tree.options = {
 	height 	: '600px',
 	open	: true,
 	edit	: false,
+<<<<<<< HEAD
 	checkbox: false,
+=======
+	checkbox: true,
+>>>>>>> 7f6daae59d3f52aeb49e3b88babd3194b0c3112d
 	showurl	: true
 };
 $.fn.bstree = function(options){
@@ -476,10 +480,16 @@ $.fn.bstree = function(options){
 	
 	var res = '加载失败！';
 	var $this = $(this);
+<<<<<<< HEAD
 	qiao.ajax(opt.url + '/tree', function(json){
 		if(json && json.obj){
 			var tree = json.obj;
 			
+=======
+	qiao.ajax(opt.url + '/tree', function (json) {
+		if(json && json.obj){
+			var tree = json.obj;
+>>>>>>> 7f6daae59d3f52aeb49e3b88babd3194b0c3112d
 			var start = '<div class="panel panel-info"><div class="panel-body" ';
 			if(opt.height != 'auto') 
 				start += 'style="height:600px;overflow-y:auto;"';

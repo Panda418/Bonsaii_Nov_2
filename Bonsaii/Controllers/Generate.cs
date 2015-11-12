@@ -92,8 +92,13 @@ namespace Bonsaii.Controllers
         /// </summary>
         /// <param name="BillTypeNumber">单据类型编号,连接字符串</param>
         /// <returns>单号</returns>
+<<<<<<< HEAD
         public static string GenerateBillNumber(string BillTypeNumber,string connString)
         {    
+=======
+        public static string GenerateBillNumber(string BillTypeNumber, string connString)
+        {
+>>>>>>> 7f6daae59d3f52aeb49e3b88babd3194b0c3112d
             BonsaiiDbContext db = new BonsaiiDbContext(connString);
             BillPropertyModels tmp = db.BillProperties.Where(p => p.Type == BillTypeNumber).Single();
             string date = DateTime.Now.ToString("yyyyMMdd");

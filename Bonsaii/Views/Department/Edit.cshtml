@@ -16,6 +16,17 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.DepartmentId)
+<<<<<<< HEAD
+=======
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DepartmentId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DepartmentId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DepartmentId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+>>>>>>> 7f6daae59d3f52aeb49e3b88babd3194b0c3112d
 
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -56,13 +67,9 @@
             <div class="form-group">
                 @Html.Label((string)x.Description, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    <input id="@x.Description" value=@x.Value class="form-control" name="@x.Description" />
-                    @*弱类型方法，可以指定Value？？*@
-                    @*@Html.Editor("@x.Value",(string)@x.Value, new { htmlAttributes = new { @class = "form-control", @value = x.Value } })*@
-                   
+                    <input class="form-control" id="@x.Description" value="@x.Value" name ="@x.Description" />
                 </div>
             </div>
-
         }
 
         <div class="form-group">

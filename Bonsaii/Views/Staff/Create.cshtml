@@ -6,6 +6,7 @@
 <link href="~/Content/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
 <script src="~/Scripts/datetimepicker/bootstrap-datetimepicker.min.js"></script>
 <script src="~/Scripts/datetimepicker/bootstrap-datetimepicker.zh-CN.js"></script>
+<script src="~/Scripts/bootstrap3-typeahead.min.js"></script>
 <h2>Create</h2>
 
 
@@ -28,7 +29,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.BillTypeName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.BillTypeName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.BillTypeName, new { htmlAttributes = new { @class = "form-control"}})
                 @Html.ValidationMessageFor(model => model.BillTypeName, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -36,7 +37,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.BillTypeNumber, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.BillTypeNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.BillTypeNumber, new { htmlAttributes = new { @class = "form-control", @dataprovider = "typeahead" } })
                 @Html.ValidationMessageFor(model => model.BillTypeNumber, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -443,3 +444,50 @@
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
 }
+
+<script>
+/*单据类别选择*/
+    $('#BillTypeNumber').typeahead
+    ({
+        source: function (query, process) {
+            $.ajax({
+                url: '/Staff/BillTypeNumberSearch',
+                type: 'POST',
+                data: { number: query },
+                success: function (data) {
+                    if (data.success == true) {
+                        process(data.data);
+                    }
+                }
+            })
+        },
+    });
+    /*实现自动填充单据名称字段。填充单号字段。*/
+    function sendBillTypeNumber() {
+        var checkText = $('#BillTypeNumber').find("option:selected").text();
+        var checkValue = $('#BillTypeNumber').val();
+        checkValue = checkValue.split(" ")[0];
+        $("#BillTypeNumber").val(checkValue);
+        $.ajax({
+            url: '/Staff/SendBillTypeNumber',
+            data: {BillTypeNumber: checkValue},
+            type: 'POST',
+            success:function (result) {
+                for (var x in result) {
+                    var tmp = "#" + x;// result[x]是Value值
+                    // 必须用attr方式
+                    $(tmp).attr('value', result[x]);
+                    // console.info(result[x]);
+                }
+            },
+        });
+    }
+    $('#BillTypeNumber').change(function () {
+        //var tmp = $('#StaffNumber').val();
+        if ($('#BillTypeNumber').val() == "") {
+            $(':input').val("");
+        }
+        else
+            sendBillTypeNumber();
+    });
+</script>

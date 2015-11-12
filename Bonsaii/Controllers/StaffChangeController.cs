@@ -41,29 +41,6 @@ namespace Bonsaii.Controllers
         // GET: StaffChange/Create
         public ActionResult Create()
         {
-            /*单据类别编号下拉列表*/
-
-
-            /*单据类别名称下拉列表*/
-
-
-            /*单号*/
-
-
-            /*员工工号下拉列表StaffNumberList*/
-            //List<SelectListItem> item = db.Staffs.ToList().Select(c => new SelectListItem
-            //{
-            //    Value = c.StaffNumber,
-            //    Text = c.StaffNumber
-            //}).ToList();
-
-            //SelectListItem i = new SelectListItem();
-            //i.Value = "";
-            //i.Text = " ";
-            //item.Insert(0, i);
-
-            //ViewBag.StaffNumberList = item;
-            
             return View();
         }
 
@@ -74,19 +51,6 @@ namespace Bonsaii.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,BillTypeNumber,BillTypeName,BillNumber,StaffNumber,Name,Gender,Department,WorkType,Position,IdentificationType,Nationality,IdentificationNumber,Entrydate,ClassOrder,JobState,AbnormalChange,FreeCard,WorkProperty,ApplyOvertimeSwitch,Source,QualifyingPeriodFull,MaritalStatus,BirthDate,NativePlace,HealthCondition,Nation,Address,VisaOffice,HomeTelNumber,EducationBackground,GraduationSchool,SchoolMajor,Degree,Introducer,IndividualTelNumber,BankCardNumber,UrgencyContactMan,UrgencyContactAddress,UrgencyContactPhoneNumber,InBlacklist,PhysicalCardNumber,AuditStatus,EffectiveDate,Remark,LeaveType,LeaveDate,LeaveReason")] StaffChange staffChange)
         {
-            //List<SelectListItem> item = db.Staffs.ToList().Select(c => new SelectListItem
-            //{
-            //    Value = c.StaffNumber,
-            //    Text = c.StaffNumber
-            //}).ToList();
-
-            //SelectListItem i = new SelectListItem();
-            //i.Value = "";
-            //i.Text = " ";
-            //item.Insert(0,i);
-
-            //ViewBag.StaffNumberList = item;
-
             if (ModelState.IsValid)
             {
                 staffChange.AuditStatus = "未审核";
@@ -102,7 +66,6 @@ namespace Bonsaii.Controllers
         [HttpPost]
         public JsonResult BillTypeNumberSearch(string number)
         {
-
             try
             {
                 var items = (from p in db.BillProperties where p.Type.Contains(number) || p.TypeName.Contains(number) select p.Type+" "+p.TypeName).ToList();
@@ -114,7 +77,6 @@ namespace Bonsaii.Controllers
                 });
             }
             catch (Exception e) { return Json(new { success = false, msg = e.Message }); }
-
         }
 
         /*实现:自动填充单据名称*/
@@ -132,7 +94,6 @@ namespace Bonsaii.Controllers
         [HttpPost]
         public JsonResult StaffnumberSearch(string number)
        {
-         
            try {
               // var item = db.Staffs.Where(w => (w.StaffNumber).Contains(number)).ToList().Select(w => new { id=w.StaffNumber,name=w.StaffNumber});
                var items = (from p in db.Staffs where p.StaffNumber.Contains(number) || p.Name.Contains(number) select p.StaffNumber +" "+ p.Name).ToList();//.ToList().Select p;
@@ -145,7 +106,6 @@ namespace Bonsaii.Controllers
            });
         }
         catch(Exception e){return Json(new{success = false,msg=e.Message});}
-
        }
         /*根据工号调出员工的信息*/
         [HttpPost]

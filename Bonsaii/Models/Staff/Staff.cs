@@ -12,13 +12,12 @@ namespace Bonsaii.Models
     {
         [Key]
         public int Number { get; set; }
-        [Display(Name="单据类别")]
+        [Display(Name="单号")]
         [Required]
         public string BillTypeName { get; set; }
-        [Display(Name = "单号")]
+        [Display(Name = "单据类别")]
         [Required]
         public string BillTypeNumber { get; set; }
-        
         [Display(Name = "工号")]
         [Required]
         public string StaffNumber { get; set; }

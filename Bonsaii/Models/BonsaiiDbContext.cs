@@ -34,7 +34,11 @@ namespace Bonsaii.Models
 
 
         public DbSet<UserRole> UserRoles { get; set; }
+<<<<<<< HEAD
 
+=======
+       // public System.Data.Entity.DbSet<Bonsaii.Models.> Departments { get; set; }
+>>>>>>> 7f6daae59d3f52aeb49e3b88babd3194b0c3112d
 
         public System.Data.Entity.DbSet<Bonsaii.Models.Phrase> Phrases { get; set; }
 
@@ -86,10 +90,15 @@ namespace Bonsaii.Models
         public System.Data.Entity.DbSet<Bonsaii.Models.StaffSkillReserve> StaffSkillReserves { get; set; }
         public System.Data.Entity.DbSet<Bonsaii.Models.StaffReserve> StaffReserves { get; set; }
 
+<<<<<<< HEAD
         public DbSet<DataSubscriptions> DataSubscriptions { get; set; }
 
         public DbSet<BillSort> BillSorts { get; set; }
 
         public DbSet<BillStaffMapping> BillStaffMappings { get; set; }
+=======
+        public System.Data.Entity.DbSet<Bonsaii.Models.Train.TrainStart> TrainStarts { get; set; }
+        public System.Data.Entity.DbSet<Bonsaii.Models.Department> Departments { get; set; }
+>>>>>>> 7f6daae59d3f52aeb49e3b88babd3194b0c3112d
     }
 }

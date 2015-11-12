@@ -420,14 +420,16 @@
 
             });
         }
-        $('#StaffNumber').change(function () {
+        $('#StaffNumber').change(
+            function () {
           //  var tmp = $('#StaffNumber').val();
             if ($('#StaffNumber').val() == "") {
                 $(':input').val("");
             }
             else
                 sendData();
-        });
+            }
+        );
         /*单据类别选择 */
         $('#BillTypeNumber').typeahead
         ({
